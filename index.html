@@ -4,47 +4,24 @@
     <meta charset="UTF-8">
     <title>Delta Scripts Hub</title>
     <style>
-        body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 15px; }
-        .input-box { width: 90%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; }
-        .btn { background: #ff0055; color: #fff; padding: 12px; border-radius: 8px; border: none; width: 95%; font-weight: bold; margin-bottom: 20px; cursor: pointer; }
-        .script-card { background: #1a1a1a; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; text-align: right; }
-        .copy-btn { background: #00ffcc; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; color: #000; font-weight: bold; margin-top: 5px; }
+        body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 20px; }
+        .box { background: #1a1a1a; padding: 15px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #333; }
+        a { display: block; background: #00ffcc; color: #000; padding: 15px; margin: 10px 0; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .bot-link { background: #ff0055; color: #fff; }
     </style>
 </head>
 <body>
     <h1>HusseinHub - Delta</h1>
     
-    <div class="script-card">
-        <h3>🔑 الحصول على مفتاح دلتا</h3>
-        <input type="text" id="linkInput" class="input-box" placeholder="ضع رابط دلتا هنا...">
-        <button class="btn" onclick="openBot()">فتح البوت للمفتاح</button>
+    <div class="box">
+        <h3>🔑 للحصول على المفتاح</h3>
+        <a href="https://t.me/OrxBypass_bot" class="bot-link">اضغط هنا لفتح البوت</a>
     </div>
     
-    <div id="scripts-list"></div>
-
-    <script>
-        function openBot() {
-            const link = document.getElementById('linkInput').value;
-            if(link) { window.location.href = "https://t.me/OrxBypass_bot?start=" + encodeURIComponent(link); }
-            else { alert("يرجى وضع الرابط أولاً!"); }
-        }
-
-        const scripts = [
-            { name: "سكربت فارم تلقائي (Auto Farm)", code: "loadstring(game:HttpGet('https://example.com/autofarm'))()" },
-            { name: "سكربت طيران (Fly Script)", code: "loadstring(game:HttpGet('https://example.com/fly'))()" },
-            { name: "سكربت سرعة (Speed Hack)", code: "game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100" },
-            { name: "سكربت رؤية من خلال الجدران (ESP)", code: "loadstring(game:HttpGet('https://example.com/esp'))()" },
-            { name: "سكربت تجميع كوينز (Collect Coins)", code: "loadstring(game:HttpGet('https://example.com/coins'))()" },
-            { name: "سكربت تجنب الموت (God Mode)", code: "loadstring(game:HttpGet('https://example.com/godmode'))()" }
-        ];
-        
-        const list = document.getElementById('scripts-list');
-        scripts.forEach(s => {
-            const div = document.createElement('div');
-            div.className = 'script-card';
-            div.innerHTML = <h3>${s.name}</h3><button class="copy-btn" onclick="navigator.clipboard.writeText('${s.code}'); alert('تم النسخ!');">نسخ السكربت</button>;
-            list.appendChild(div);
-        });
-    </script>
+    <div class="box">
+        <h3>📜 قائمة السكربتات</h3>
+        <a href="https://pastebin.com/raw/رابط_السكربت_1">نسخ سكربت فارم تلقائي</a>
+        <a href="https://pastebin.com/raw/رابط_السكربت_2">نسخ سكربت طيران</a>
+    </div>
 </body>
 </html>
