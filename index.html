@@ -11,19 +11,19 @@
 </head>
 <body>
     <h1>Delta Scripts Hub</h1>
-    <div id="scripts-list">جاري تحميل السكربتات...</div>
+    <div id="scripts-list"></div>
     <script>
-        fetch('scripts.json')
-        .then(response => response.json())
-        .then(data => {
-            const list = document.getElementById('scripts-list');
-            list.innerHTML = "";
-            data.scripts.forEach(s => {
-                const div = document.createElement('div');
-                div.className = 'script-card';
-                div.innerHTML = <h3>${s.name}</h3><button class="copy-btn" onclick="navigator.clipboard.writeText('${s.code}'); alert('تم النسخ!');">نسخ السكربت</button>;
-                list.appendChild(div);
-            });
+        const scripts = [
+            { name: "سكربت تجريبي 1", code: "print('Hello World')" },
+            { name: "سكربت تجريبي 2", code: "print('HusseinHub Working')" }
+        ];
+        
+        const list = document.getElementById('scripts-list');
+        scripts.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'script-card';
+            div.innerHTML = <h3>${s.name}</h3><button class="copy-btn" onclick="navigator.clipboard.writeText('${s.code}'); alert('تم النسخ!');">نسخ السكربت</button>;
+            list.appendChild(div);
         });
     </script>
 </body>
