@@ -42,7 +42,7 @@
         scripts.forEach(s => {
             const div = document.createElement('div');
             div.className = 'script-card';
-            div.innerHTML = <h3>${s.name}</h3><button class="copy-btn" onclick="navigator.clipboard.writeText(\${s.code}\); alert('تم نسخ: ${s.name}');">نسخ السكربت</button>;
+            div.innerHTML = <h3>${s.name}</h3><button class="copy-btn" onclick="navigator.clipboard.writeText('${s.code}'); alert('تم النسخ!');">نسخ السكربت</button>;
             list.appendChild(div);
         });
     </script>
