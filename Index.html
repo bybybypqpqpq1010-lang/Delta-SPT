@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Delta Scripts Hub</title>
+    <style>
+        body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 20px; }
+        .ad-banner { background: #ff0055; padding: 15px; color: #fff; text-decoration: none; display: block; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+        .script-card { background: #1a1a1a; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; }
+        .copy-btn { background: #00ffcc; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776" target="_blank" class="ad-banner">🔥 اضغط هنا لدعمنا 🔥</a>
+    <h1>Delta Scripts Hub</h1>
+    <div id="scripts-list">جاري التحميل...</div>
+    <script>
+        fetch("https://api.npoint.io/f45688ef93929efa9d1f")
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById('scripts-list');
+            list.innerHTML = "";
+            data.scripts.forEach(s => {
+                const div = document.createElement('div');
+                div.className = 'script-card';
+                div.innerHTML = <h3>${s.name}</h3><button class="copy-btn" onclick="copyCode('${btoa(s.code)}')">نسخ السكربت</button>;
+                list.appendChild(div);
+            });
+        });
+        function copyCode(b64) {
+            const code = atob(b64);
+            navigator.clipboard.writeText(code);
+            alert("تم النسخ!");
+            window.open("https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776", "_blank");
+        }
+    </script>
+</body>
+</html>
