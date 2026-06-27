@@ -6,26 +6,37 @@
     <style>
         body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 15px; }
         .card { background: #1a1a1a; padding: 15px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #333; }
-        textarea { width: 90%; height: 60px; background: #000; color: #00ffcc; border: 1px solid #444; border-radius: 5px; padding: 10px; resize: none; }
-        .btn { background: #00ffcc; color: #000; padding: 10px; border-radius: 5px; border: none; font-weight: bold; width: 95%; margin-top: 5px; cursor: pointer; }
-        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 8px; border: none; width: 100%; font-weight: bold; }
+        .btn { background: #00ffcc; color: #000; padding: 12px; border-radius: 5px; border: none; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer; }
+        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 8px; border: none; width: 100%; font-weight: bold; margin-bottom: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>HusseinHub - Delta</h1>
     
+    <!-- زر البوت -->
     <button class="bot-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 فتح بوت الحصول على المفتاح</button>
 
+    <!-- قائمة السكربتات -->
     <div class="card">
         <h3>سكربت فارم تلقائي</h3>
-        <textarea readonly>loadstring(game:HttpGet('رابط_السكربت_هنا'))()</textarea>
-        <button class="btn" onclick="alert('قم بنسخ الكود من الصندوق أعلاه')">اضغط للنسخ</button>
+        <button class="btn" onclick="copyText('loadstring(game:HttpGet(\'رابط_السكربت_1\'))()')">اضغط للنسخ</button>
     </div>
 
     <div class="card">
         <h3>سكربت طيران</h3>
-        <textarea readonly>loadstring(game:HttpGet('رابط_السكربت_الثاني'))()</textarea>
-        <button class="btn" onclick="alert('قم بنسخ الكود من الصندوق أعلاه')">اضغط للنسخ</button>
+        <button class="btn" onclick="copyText('loadstring(game:HttpGet(\'رابط_السكربت_2\'))()')">اضغط للنسخ</button>
     </div>
+
+    <script>
+        function copyText(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert('تم نسخ السكربت بنجاح!');
+        }
+    </script>
 </body>
 </html>
