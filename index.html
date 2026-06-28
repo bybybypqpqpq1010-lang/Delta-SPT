@@ -175,10 +175,37 @@ fetch(db+"/"+id+".json",{method:"DELETE"}).then(load)
 }
 
 function copyCode(c){
-navigator.clipboard.writeText(atob(c))
-document.getElementById("toast").style.display="block"
-setTimeout(()=>toast.style.display="none",2000)
-window.open("https://t.me/OrxBypass_bot","_blank")
+    try {
+        navigator.clipboard.writeText(atob(c));
+
+        document.getElementById("toast").style.display = "block";
+        setTimeout(()=>toast.style.display="none",2000);
+
+        // 🔥 فتح رابط الإعلان بعد النسخ
+        window.open(
+            "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776",
+            "_blank"
+        );
+
+    } catch(e){
+        alert("خطأ في النسخ");
+    }
+      }function copyCode(c){
+    try {
+        navigator.clipboard.writeText(atob(c));
+
+        document.getElementById("toast").style.display = "block";
+        setTimeout(()=>toast.style.display="none",2000);
+
+        // 🔥 فتح رابط الإعلان بعد النسخ
+        window.open(
+            "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776",
+            "_blank"
+        );
+
+    } catch(e){
+        alert("خطأ في النسخ");
+    }
 }
 
 load()
