@@ -3,83 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Delta SPT</title>
+<title>Delta SPT PRO</title>
 
 <style>
 :root{
 --bg:#0d1117;--card:#161b22;--text:#f0f6fc;--muted:#8b949e;
---blue:#1f6feb;--green:#238636;--yellow:#d29922;--red:#da3633;
---border:#30363d;
+--blue:#1f6feb;--green:#238636;--red:#da3633;--border:#30363d;
 }
-.light-mode{
---bg:#f6f8fa;--card:#fff;--text:#24292f;--muted:#57606a;
---blue:#0969da;--green:#1a7f37;--yellow:#9a6700;--red:#cf222e;
---border:#d0d7de;
-}
-
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial;transition:.2s}
-body{background:var(--bg);color:var(--text);direction:rtl}
+body{margin:0;font-family:Arial;background:var(--bg);color:var(--text);direction:rtl}
 
 header{
-display:flex;justify-content:space-between;align-items:center;
 padding:12px;background:var(--card);position:sticky;top:0;
+display:flex;justify-content:space-between;align-items:center;
 border-bottom:1px solid var(--border);
 }
 
-.container{max-width:650px;margin:auto;padding:10px}
+.container{max-width:700px;margin:auto;padding:10px}
 
 button{cursor:pointer}
 
-.main-btn{
+.main{
 width:100%;padding:14px;border:none;border-radius:12px;
-background:linear-gradient(135deg,#1f6feb,#388bfd);color:white;font-weight:bold
-}
-
-.search{
-width:100%;padding:12px;border-radius:10px;
-border:1px solid var(--border);background:var(--card);color:var(--text);margin:10px 0
-}
-
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-
-.tab{
-padding:10px;border-radius:10px;background:var(--card);
-border:1px solid var(--border);color:var(--muted);text-align:center
-}
-
-.banner{
-margin:10px 0;padding:10px;border:1px dashed var(--blue);
-border-radius:10px;color:var(--muted)
-}
-
-.card{
-background:var(--card);padding:12px;margin:10px 0;
-border-radius:12px;border:1px solid var(--border);
-display:flex;justify-content:space-between;align-items:center
-}
-
-.card h3{margin:0}
-.card p{color:var(--muted);font-size:13px}
-
-.btn{padding:8px 10px;border-radius:8px;border:none}
-.copy{background:var(--blue);color:white}
-.del{background:transparent;border:1px solid var(--red);color:var(--red)}
-
-#admin{
-display:none;background:var(--card);padding:12px;margin:10px 0;
-border:1px solid var(--green);border-radius:12px
+background:linear-gradient(135deg,#1f6feb,#388bfd);
+color:white;font-weight:bold;margin:10px 0
 }
 
 input,textarea{
 width:100%;margin:5px 0;padding:10px;border-radius:8px;
-border:1px solid var(--border);background:var(--bg);color:var(--text)
+border:1px solid var(--border);background:var(--card);color:var(--text)
 }
 
 textarea{height:90px}
 
+.card{
+background:var(--card);padding:12px;margin:10px 0;
+border-radius:10px;border:1px solid var(--border);
+display:flex;justify-content:space-between;align-items:center
+}
+
+.copy{background:var(--blue);color:white;border:none;padding:7px 10px;border-radius:8px}
+.del{background:transparent;border:1px solid var(--red);color:var(--red);padding:7px 10px;border-radius:8px}
+
+#admin{display:none;margin:10px 0;padding:12px;border:1px solid var(--green);border-radius:10px;background:var(--card)}
+
 .toast{
 position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-background:var(--green);padding:10px 20px;color:white;border-radius:20px;display:none
+background:var(--green);padding:10px 20px;border-radius:20px;display:none
 }
 </style>
 </head>
@@ -87,39 +56,28 @@ background:var(--green);padding:10px 20px;color:white;border-radius:20px;display
 <body>
 
 <header>
-<h2>Delta SPT</h2>
-<button onclick="toggleTheme()">🌙</button>
+<h3>Delta SPT PRO</h3>
+<button onclick="toggle()">🌙</button>
 </header>
 
 <div class="container">
 
-<button class="main-btn"
+<button class="main"
 onclick="window.open('https://t.me/OrxBypass_bot','_blank')">
 🤖 الحصول على المفتاح
 </button>
 
-<input class="search" id="search" placeholder="ابحث..." oninput="searchFun(this.value)">
-
-<div class="tabs">
-<div class="tab">الرئيسية</div>
-<div class="tab" onclick="window.open('https://t.me/DeltaSPT','_blank')">القناة</div>
-<div class="tab">المفضلة</div>
-<div class="tab">الإعدادات</div>
-</div>
-
-<div class="banner">
-📢 تابع قناة Delta SPT للحصول على التحديثات
-</div>
+<input id="search" placeholder="بحث..." oninput="checkAdmin(this.value)">
 
 <div id="admin">
-<h3>لوحة التحكم</h3>
-<input id="name" placeholder="اسم السكربت">
+<h3>لوحة الإشراف</h3>
+<input id="name" placeholder="اسم">
 <input id="desc" placeholder="وصف">
-<textarea id="code" placeholder="الكود"></textarea>
-<button onclick="add()">نشر</button>
+<textarea id="code" placeholder="كود"></textarea>
+<button onclick="addScript()">نشر</button>
 </div>
 
-<h3>✨ السكربتات (<span id="count">0</span>)</h3>
+<h3>السكربتات (<span id="count">0</span>)</h3>
 <div id="list"></div>
 
 </div>
@@ -128,44 +86,52 @@ onclick="window.open('https://t.me/OrxBypass_bot','_blank')">
 
 <script>
 const db="https://delta-spt-default-rtdb.firebaseio.com/scripts";
-
 let admin=false;
 
-function toggleTheme(){
-document.body.classList.toggle("light-mode");
+function toggle(){
+document.body.classList.toggle("light");
 }
 
-function searchFun(v){
-document.querySelectorAll(".card").forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(v.toLowerCase())?"flex":"none";
-});
-
-if(v.trim().toLowerCase()==="husseinwar"){
+function checkAdmin(v){
+if(v.trim()==="husseinwar"){
 admin=true;
 document.getElementById("admin").style.display="block";
 load();
 }
+
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(v.toLowerCase())?"flex":"none";
+});
 }
 
-function add(){
-const nameVal=document.getElementById("name").value;
-const descVal=document.getElementById("desc").value;
-const codeVal=document.getElementById("code").value;
+function addScript(){
+const n=document.getElementById("name").value;
+const d=document.getElementById("desc").value;
+const c=document.getElementById("code").value;
 
-if(!nameVal||!descVal||!codeVal){
-alert("املأ كل الحقول");
+if(!n||!d||!c){
+alert("املأ البيانات");
 return;
 }
 
 fetch(db+".json",{
 method:"POST",
-body:JSON.stringify({name:nameVal,desc:descVal,code:codeVal})
-}).then(()=>{
+body:JSON.stringify({name:n,desc:d,code:c})
+})
+.then(r=>{
+if(!r.ok) throw new Error("Firebase Error");
+return r.json();
+})
+.then(()=>{
+alert("تم النشر بنجاح");
 document.getElementById("name").value="";
 document.getElementById("desc").value="";
 document.getElementById("code").value="";
 load();
-alert("تم نشر السكربت");
+})
+.catch(err=>{
+alert("فشل النشر - تأكد من Firebase Rules");
+console.error(err);
 });
 }
 
@@ -176,7 +142,10 @@ fetch(db+".json")
 let list=document.getElementById("list");
 list.innerHTML="";
 
-if(!d)return;
+if(!d){
+document.getElementById("count").innerText=0;
+return;
+}
 
 let arr=Object.entries(d);
 document.getElementById("count").innerText=arr.length;
@@ -187,13 +156,13 @@ div.className="card";
 
 div.innerHTML=`
 <div>
-<h3>${x.name}</h3>
-<p>${x.desc}</p>
+<b>${x.name}</b><br>
+<small>${x.desc}</small>
 </div>
 
 <div>
-<button class="btn copy" onclick="copyCode(\`${btoa(x.code)}\`)">نسخ</button>
-${admin ? `<button class="btn del" onclick="del('${id}')">حذف</button>` : ""}
+<button class="copy" onclick="copy(\`${btoa(x.code)}\`)">نسخ</button>
+${admin?`<button class="del" onclick="del('${id}')">حذف</button>`:""}
 </div>
 `;
 
@@ -206,20 +175,12 @@ function del(id){
 fetch(db+"/"+id+".json",{method:"DELETE"}).then(load);
 }
 
-function copyCode(c){
+function copy(c){
 navigator.clipboard.writeText(atob(c));
-
 document.getElementById("toast").style.display="block";
 setTimeout(()=>toast.style.display="none",2000);
 
-window.open(
-"https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776",
-"_blank"
-);
-}
-
-function toggleTheme(){
-document.body.classList.toggle("light-mode");
+window.open("https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776","_blank");
 }
 
 load();
