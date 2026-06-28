@@ -2,63 +2,37 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>HusseinHub</title>
-    <style>
-        body { font-family: sans-serif; background-color: #000; color: #fff; text-align: center; padding: 10px; }
-        .item { background: #111; border: 1px solid #333; padding: 15px; margin: 10px; border-radius: 10px; }
-        .btn { background: #00ffcc; color: #000; padding: 15px; border-radius: 5px; border: none; font-weight: bold; width: 100%; font-size: 16px; }
-        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 10px; border: none; width: 100%; font-weight: bold; margin-bottom: 20px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta SPT</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>HusseinHub</h1>
-    <button class="bot-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 الحصول على المفتاح</button>
 
-    <div id="list"></div>
+<header>
+    <h1>Delta SPT</h1>
+    <div class="top-bar">
+        <input type="text" id="search" placeholder="ابحث عن سكربت...">
+        <button onclick="toggleTheme()">🌙</button>
+    </div>
+</header>
 
-    <script>
-        const adLink = "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776";
-        const scripts = [
-            {name: "Infinite Yield", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()"},
-            {name: "Blox Fruits Autofarm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
-            {name: "Pet Simulator 99", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/PS99/main/main.lua'))()"},
-            {name: "Brookhaven GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/dohnto/Brookhaven/main/script'))()"},
-            {name: "Adopt Me", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AdoptMe/main/Script'))()"},
-            {name: "Doors", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/mstudio45/Doors/main/main'))()"},
-            {name: "MM2 Auto Farm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Boxpen/MM2/main/script'))()"},
-            {name: "Bedwars", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua'))()"},
-            {name: "Da Hood", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/y3tix/DaHood/main/Script'))()"},
-            {name: "Tower of Hell", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/tower-of-hell/master/main.lua'))()"},
-            {name: "Sol's RNG", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/CoolingGhost/SolsRNG/main/Script'))()"},
-            {name: "Blox Fruits ESP", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/batti123/Roblox/main/BloxFruitsESP'))()"},
-            {name: "All Star Tower Defense", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/123qweasd/ASTD/main/Script'))()"},
-            {name: "Blade Ball", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BladeBall/main/Script'))()"},
-            {name: "Gym League", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/GymLeague/main/Script'))()"},
-            {name: "Speed Run 4", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/speed-run-4/master/main.lua'))()"},
-            {name: "Break In Story", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BreakIn/main/Script'))()"},
-            {name: "Piggy", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/piggy/master/main.lua'))()"},
-            {name: "Theme Park Tycoon 2", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/ThemePark/main/Script'))()"},
-            {name: "Gravity", code: "game.Workspace.Gravity = 50"},
-            {name: "Fly Script", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua'))()"},
-            {name: "WalkSpeed 100", code: "game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100"}
-        ];
+<nav>
+    <button onclick="showTab('home')">الرئيسية</button>
+    <button onclick="showTab('fav')">المفضلة ⭐</button>
+    <button onclick="showTab('settings')">الإعدادات ⚙️</button>
+</nav>
 
-        const list = document.getElementById('list');
-        scripts.forEach(s => {
-            const div = document.createElement('div');
-            div.className = 'item';
-            div.innerHTML = `<h3>${s.name}</h3><button class="btn" onclick="copyAndAd('${s.code}')">نسخ السكربت</button>`;
-            list.appendChild(div);
-        });
+<main>
+    <section id="home" class="tab active"></section>
+    <section id="fav" class="tab"></section>
+    <section id="settings" class="tab">
+        <h2>الإعدادات</h2>
+        <p>يتم حفظ الثيم تلقائياً.</p>
+    </section>
+</main>
 
-        function copyAndAd(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('تم النسخ! سيفتح الإعلان الآن');
-                window.open(adLink, '_blank');
-            }).catch(() => {
-                alert('حدث خطأ في النسخ، اضغط ضغطة مطولة على اسم الماب');
-            });
-        }
-    </script>
+<div id="toast"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
