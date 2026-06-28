@@ -2,12 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Delta Scripts Hub</title>
+    <title>HusseinHub - Delta</title>
     <style>
         body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 10px; }
         .card { background: #1a1a1a; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #333; }
-        .btn { background: #00ffcc; color: #000; padding: 10px; border-radius: 5px; border: none; font-weight: bold; width: 100%; cursor: pointer; }
-        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 8px; border: none; width: 100%; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
+        .btn { background: #00ffcc; color: #000; padding: 12px; border-radius: 5px; border: none; font-weight: bold; width: 100%; cursor: pointer; }
+        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 8px; border: none; width: 100%; font-weight: bold; margin-bottom: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -17,19 +17,37 @@
     <div id="scripts-container"></div>
 
     <script>
+        const adLink = "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776";
+        
         const scripts = [
             {name: "Infinite Yield", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()"},
-            {name: "Blox Fruits", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
+            {name: "Blox Fruits Auto Farm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
             {name: "Pet Simulator 99", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/PS99/main/main.lua'))()"},
-            {name: "Brookhaven", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/dohnto/Brookhaven/main/script'))()"},
-            {name: "Adopt Me", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AdoptMe/main/Script'))()"},
-            {name: "Doors", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/mstudio45/Doors/main/main'))()"},
-            {name: "Murder Mystery 2", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Boxpen/MM2/main/script'))()"}
-            // يمكنك إضافة البقية بنفس هذا التنسيق
+            {name: "Brookhaven GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/dohnto/Brookhaven/main/script'))()"},
+            {name: "Adopt Me Autofarm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AdoptMe/main/Script'))()"},
+            {name: "Doors Entities", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/mstudio45/Doors/main/main'))()"},
+            {name: "Murder Mystery 2", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Boxpen/MM2/main/script'))()"},
+            {name: "Bedwars Vape V4", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua'))()"},
+            {name: "Da Hood GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/y3tix/DaHood/main/Script'))()"},
+            {name: "Tower of Hell", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/tower-of-hell/master/main.lua'))()"},
+            {name: "Sol's RNG Auto", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/CoolingGhost/SolsRNG/main/Script'))()"},
+            {name: "Blox Fruits ESP", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/batti123/Roblox/main/BloxFruitsESP'))()"},
+            {name: "All Star Tower Defense", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/123qweasd/ASTD/main/Script'))()"},
+            {name: "Blade Ball Autofarm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BladeBall/main/Script'))()"},
+            {name: "Gym League Auto", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/GymLeague/main/Script'))()"},
+            {name: "Speed Run 4", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/speed-run-4/master/main.lua'))()"},
+            {name: "Break In Story", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BreakIn/main/Script'))()"},
+            {name: "Piggy GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/piggy/master/main.lua'))()"},
+            {name: "Theme Park Tycoon", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/ThemePark/main/Script'))()"},
+            {name: "Gravity Controller", code: "game.Workspace.Gravity = 50"},
+            {name: "Fly Script V3", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua'))()"},
+            {name: "WalkSpeed 100", code: "game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100"},
+            {name: "Jailbreak GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/jailbreak/master/main.lua'))()"},
+            {name: "Phantom Forces", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/PhantomForces/main/Script'))()"},
+            {name: "Anime Fighters", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AnimeFighters/main/Script'))()"}
         ];
 
         const container = document.getElementById('scripts-container');
-        
         scripts.forEach(s => {
             const div = document.createElement('div');
             div.className = 'card';
@@ -37,8 +55,10 @@
             const btn = document.createElement('button');
             btn.className = 'btn';
             btn.innerText = 'نسخ السكربت';
-            // نستخدم دالة مخصصة لفك تشفير الكود قبل نسخه
-            btn.onclick = () => copyText(s.code);
+            btn.onclick = () => {
+                window.open(adLink, '_blank');
+                copyText(s.code);
+            };
             div.appendChild(btn);
             container.appendChild(div);
         });
@@ -48,13 +68,9 @@
             el.value = text;
             document.body.appendChild(el);
             el.select();
-            try {
-                document.execCommand('copy');
-                alert('تم النسخ بنجاح!');
-            } catch (err) {
-                alert('فشل النسخ، جرب الضغط مطولاً داخل الصندوق');
-            }
+            document.execCommand('copy');
             document.body.removeChild(el);
+            alert('تم فتح الإعلان، وتم نسخ السكربت!');
         }
     </script>
 </body>
