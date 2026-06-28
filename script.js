@@ -213,4 +213,4 @@ function copyScript(safeCode) {
     }
 
     window.open('https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776', '_blank'); 
-}
+        }
