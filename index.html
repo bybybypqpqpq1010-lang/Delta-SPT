@@ -5,43 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delta SPT</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* واجهة احترافية مخصصة لمابات روبلوكس */
+        .script-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .script-card {
+            background: #1c1c1c;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .script-card:hover {
+            transform: translateY(-2px);
+        }
+        .script-info h3 {
+            margin: 0 0 5px 0;
+            color: #ffc107; /* لون ذهبي للمابات المشهورة */
+            font-size: 16px;
+        }
+        .script-info p {
+            margin: 0;
+            color: #bbb;
+            font-size: 12px;
+        }
+        .copy-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+        .section-title {
+            color: #007bff;
+            border-bottom: 2px solid #2a2a2a;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
 <header>
     <h1>Delta SPT</h1>
     <button class="key-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 الحصول على مفتاح دلتا</button>
+    <div class="top-bar">
+        <input type="text" id="search" placeholder="ابحث عن سكربت لماب...">
+        <button onclick="toggleTheme()">🌙</button>
+    </div>
 </header>
 
 <nav>
     <button onclick="showTab('home')">الرئيسية</button>
-    <button onclick="showTab('fav')">المفضلة</button>
+    <button onclick="showTab('fav')">المفضلة ⭐</button>
+    <button onclick="showTab('settings')">الإعدادات ⚙️</button>
 </nav>
 
 <main>
     <section id="home" class="tab active">
-        <h2>السكربتات</h2>
-        <div class="script-item">
-            <span>HusseinHub</span>
-            <button onclick="copyText('كود السكربت هنا')">نسخ</button>
+        
+        <!-- زر قناة التليجرام الرسمية للتطبيق -->
+        <div style="margin-bottom: 20px;">
+            <button class="channel-btn" onclick="window.open('https://t.me/DeltaSPT', '_blank')">📢 انضم لقناة التطبيق الرسمية</button>
         </div>
-        <button class="channel-btn" onclick="window.open('https://t.me/DeltaSPT', '_blank')">📢 قناة التطبيق</button>
+
+        <div class="section-title">🔥 سكربتات مابات روبلوكس المشهورة (Roblox)</div>
+        <div class="script-container">
+            
+            <!-- ماب بلوكس فروت -->
+            <div class="script-card">
+                <div class="script-info">
+                    <h3>Blox Fruits (Hoho Hub)</h3>
+                    <p>أفضل سكربت للتلفيل التلقائي، تجميع الفواكه، وجمع العظام بدون لاق</p>
+                </div>
+                <button class="copy-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/acsu12/HOHO_H/main/Loading_v2.lua\'))()')">نسخ 📋</button>
+            </div>
+
+            <!-- ماب بروك هيفن -->
+            <div class="script-card">
+                <div class="script-info">
+                    <h3>Brookhaven RP (Fly & Troll)</h3>
+                    <p>سكربت الطيران، اختراق الجدران، وتغيير السيارات والملابس مجاناً</p>
+                </div>
+                <button class="copy-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/IceBearHub/Brookhaven/main/main.lua\'))()')">نسخ 📋</button>
+            </div>
+
+            <!-- ماب بيد وارس -->
+            <div class="script-card">
+                <div class="script-info">
+                    <h3>BedWars (Vape V4)</h3>
+                    <p>سكربت الأسطوري (KillAura، طيران سريع، رؤية عبر الجدران، وتطوير أسلحة)</p>
+                </div>
+                <button class="copy-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua\'))()')">نسخ 📋</button>
+            </div>
+
+            <!-- ماب بيت سيموليتر 99 -->
+            <div class="script-card">
+                <div class="script-info">
+                    <h3>Pet Simulator 99 (Redz Hub)</h3>
+                    <p>تجميع العملات والألماس تلقائياً، فتح البيض سريع، وتطوير الحيوانات</p>
+                </div>
+                <button class="copy-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/REGYEDE/RedzHub/main/PetSim99.lua\'))()')">نسخ 📋</button>
+            </div>
+
+            <!-- ماب ادوبت مي -->
+            <div class="script-card">
+                <div class="script-info">
+                    <h3>Adopt Me (Auto Farm)</h3>
+                    <p>تجميع الأموال وتكبير الحيوانات الأليفة تلقائياً أثناء غيابك</p>
+                </div>
+                <button class="copy-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/IceBearHub/AdoptMe/main/loader.lua\'))()')">نسخ 📋</button>
+            </div>
+
+        </div>
     </section>
-    
+
+    <!-- قسم المفضلة -->
     <section id="fav" class="tab">
-        <h2>المفضلة</h2>
+        <h2>المفضلة ⭐</h2>
+        <p style="color: #888; text-align: center; margin-top: 50px;">اضغط على زر النسخ لحفظ ماباتك المفضلة هنا قريباً!</p>
+    </section>
+
+    <!-- قسم الإعدادات -->
+    <section id="settings" class="tab">
+        <h2>الإعدادات ⚙️</h2>
+        <div class="script-card" style="margin-top: 20px;">
+            <p>الوضع الليلي التلقائي</p>
+            <button class="copy-btn" style="background:#28a745;" onclick="toggleTheme()">تغيير 🌙</button>
+        </div>
+        <div class="script-card">
+            <p>إصدار تطبيق Delta SPT</p>
+            <span style="color: #007bff; font-weight: bold;">v1.5.0</span>
+        </div>
     </section>
 </main>
 
+<!-- رسالة التنبيه الخضراء عند النسخ -->
+<div id="toast" style="display:none; position:fixed; bottom:20px; background:#28a745; color:white; padding:12px 24px; border-radius:8px; width:80%; text-align:center; left:10%; z-index: 10000; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">تم النسخ! جاري فتح الإعلان...</div>
+
 <script>
-    function showTab(id) {
-        document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
+    
+    function showTab(tabId) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
     }
-    function copyText(text) {
+    
+    // دالة النسخ الفوري وفتح الإعلان بعد نصف ثانية (500 ملي ثانية)
+    function copyScript(text) {
+        // 1. نسخ الكود فوراً
         navigator.clipboard.writeText(text);
-        alert('تم النسخ');
+        
+        // 2. إظهار رسالة التنبيه
+        let toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+
+        // 3. فتح الإعلان بعد 500 ملي ثانية بالضبط
+        setTimeout(() => {
+            // ضع رابط إعلانك الفعلي هنا (حالياً يفتح قناتك للتجربة)
+            window.open('https://t.me/DeltaSPT', '_blank'); 
+        }, 500);
     }
 </script>
+<script src="script.js"></script>
 </body>
 </html>
