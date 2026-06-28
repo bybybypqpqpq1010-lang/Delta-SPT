@@ -7,7 +7,7 @@
 
 <style>
 /* ------------------------------------------------------------- */
-/* ستايلك الأصلي والمضبوط (لا يزال يعمل كما هو) */
+/* ستايلك الأصلي والمضبوط */
 /* ------------------------------------------------------------- */
 :root{
 --bg:#0d1117;--card:#161b22;--text:#f0f6fc;--muted:#8b949e;
@@ -45,7 +45,7 @@ display:flex;justify-content:space-between;align-items:center
 }
 
 .copy{background:var(--blue);color:white;border:none;padding:7px 10px;border-radius:8px}
-.del{background:transparent;border:1px solid var(--red);color:var(--red);padding:7px 10px;border-radius:8px}
+.del{background:transparent;border:1px solid var(--red);color:var(--red);padding:7px 10px;border-radius:8px;margin-right:5px;}
 
 #admin{display:none;margin:10px 0;padding:12px;border:1px solid var(--green);border-radius:10px;background:var(--card)}
 
@@ -54,9 +54,8 @@ position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
 background:var(--green);padding:10px 20px;border-radius:20px;display:none
 }
 
-
 /* ------------------------------------------------------------- */
-/* الستايل الاحترافي الجديد (يشتغل فقط عند إضافة كلاس premium-theme) */
+/* الستايل الاحترافي الجديد */
 /* ------------------------------------------------------------- */
 body.premium-theme {
     background: #0b0f17;
@@ -112,78 +111,9 @@ body.premium-theme #admin {
     border: 1px solid #10b981;
     border-radius: 14px;
 }
-.card{
-background:linear-gradient(180deg,#161b22,#10151d);
-border:1px solid #2f81f7;
-border-radius:18px;
-padding:18px;
-margin:18px 0;
-transition:.25s;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
-animation:show .35s ease;
-}
-
-.card:hover{
-transform:translateY(-4px);
-box-shadow:0 18px 35px rgba(31,111,235,.25);
-border-color:#58a6ff;
-}
-
-@keyframes show{
-from{
-opacity:0;
-transform:translateY(15px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-#list{
-display:flex;
-flex-direction:column;
-gap:5px;
-}
-
-#count{
-background:#1f6feb;
-padding:4px 10px;
-border-radius:20px;
-font-size:14px;
-}
-
-.main{
-font-size:17px;
-padding:16px;
-border-radius:16px;
-font-weight:bold;
-}
-
-header{
-padding:16px 18px;
-}
-
-header h3{
-font-size:22px;
-letter-spacing:1px;
-}
-
-#search{
-height:52px;
-font-size:16px;
-margin:20px 0;
-}
-
-.toast{
-font-weight:bold;
-font-size:15px;
-}
 </style>
 </head>
 
-<!-- لتفعيل المظهر الاحترافي أضف premium-theme داخل الـ body كما هو موضح بالأسفل -->
-<!-- إذا لم يعجبك المظهر الجديد، فقط امسح كلمة premium-theme واترك الـ <body> فارغاً ليعود لشغلك الأصلي فوراً -->
 <body class="premium-theme">
 
 <header>
@@ -296,76 +226,16 @@ arr.forEach(([id,x])=>{
 let div=document.createElement("div");
 div.className="card";
 
-div.innerHTML=`
-<div style="display:flex;align-items:center;gap:15px;width:100%;">
-
-<div style="
-width:55px;
-height:55px;
-border-radius:16px;
-background:linear-gradient(135deg,#3b82f6,#2563eb);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-flex-shrink:0;
-box-shadow:0 0 20px rgba(59,130,246,.4);
-">
-📜
+// تم تعديل تمرير الـ ID هنا ليعمل الحذف بدون مشاكل برمجية
+div.innerHTML = `
+<div>
+<b>${x.name}</b><br>
+<small>${x.desc}</small>
 </div>
 
-<div style="flex:1;overflow:hidden;">
-
-<div style="
-font-size:18px;
-font-weight:700;
-color:#fff;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-">
-${x.name}
-</div>
-
-<div style="
-margin-top:6px;
-font-size:14px;
-color:#9ca3af;
-line-height:1.5;
-">
-${x.desc}
-</div>
-
-</div>
-
-<div style="
-display:flex;
-flex-direction:column;
-gap:8px;
-">
-
-<button class="copy"
-style="
-padding:10px 18px;
-font-size:14px;
-font-weight:bold;
-border-radius:12px;
-"
-onclick="copy(\`${btoa(x.code)}\`)">
-📋 نسخ
-</button>
-
-${admin?`
-<button class="del"
-style="
-padding:10px 18px;
-border-radius:12px;
-">
-🗑 حذف
-</button>`:""}
-
-</div>
-
+<div>
+<button class="copy" onclick="copy('${btoa(unescape(encodeURIComponent(x.code)))}')">نسخ</button>
+${admin ? `<button class="del" onclick="del('${id}')">حذف</button>` : ""}
 </div>
 `;
 
@@ -375,13 +245,23 @@ list.appendChild(div);
 }
 
 function del(id){
-fetch(db+"/"+id+".json",{method:"DELETE"}).then(load);
+if(confirm("هل أنت متأكد من حذف هذا السكربت؟")) {
+fetch(db+"/"+id+".json",{method:"DELETE"})
+.then(r => {
+    if(!r.ok) throw new Error("Delete Failed");
+    alert("تم الحذف بنجاح!");
+    load();
+})
+.catch(err => alert("فشل الحذف"));
+}
 }
 
 function copy(c){
-navigator.clipboard.writeText(atob(c));
+navigator.clipboard.writeText(decodeURIComponent(escape(atob(c))));
 document.getElementById("toast").style.display="block";
-setTimeout(()=>toast.style.display="none",2000);
+setTimeout(()=> {
+    document.getElementById("toast").style.display="none";
+}, 2000);
 
 window.open("https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776","_blank");
 }
