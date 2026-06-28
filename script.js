@@ -20,22 +20,21 @@ function checkAdmin(val) {
     if(val === "husseinwar") {  
         adminPanel.style.display = "block";
         isAdminActive = true;
-        toggleAdminButtons("flex"); // إظهار أزرار التعديل والحذف بجانب السكربتات
+        toggleAdminButtons("flex");
     } else if (val === "") {
         adminPanel.style.display = "none";
         isAdminActive = false;
-        toggleAdminButtons("none"); // إخفاء أزرار الإشراف
+        toggleAdminButtons("none");
     }
 }
 
-// دالة لإظهار أو إخفاء أزرار الحذف والتعديل برمجياً
 function toggleAdminButtons(displayStyle) {
     document.querySelectorAll('.admin-controls').forEach(controls => {
         controls.style.display = displayStyle;
     });
 }
 
-// دالة لجلب السكربتات من الفايربيس وعرضها للمسخدمين
+// دالة لجلب السكربتات من الفايربيس وعرضها للمستخدمين
 function fetchScripts() {
     const container = document.getElementById("dynamic-scripts");
     
@@ -53,8 +52,12 @@ function fetchScripts() {
             const card = document.createElement("div");
             card.className = "script-card";
             
-            // تحديد حالة ظهور أزرار الإشراف حسب حالة الباسورد الحالية
             const btnDisplay = isAdminActive ? "flex" : "none";
+
+            // تشفير الكود برمجياً لحمايته من التداخل مع الرموز وعلامات الاقتباس
+            const safeCode = encodeURIComponent(item.code);
+            const safeName = encodeURIComponent(item.name);
+            const safeDesc = encodeURIComponent(item.desc);
 
             card.innerHTML = `
                 <div class="script-info">
@@ -62,19 +65,18 @@ function fetchScripts() {
                     <p>${item.desc}</p>
                 </div>
                 <div style="display: flex; align-items: center;">
-                    <!-- أزرار الإشراف الخاصة بك يا حسين -->
                     <div class="admin-controls" style="display: ${btnDisplay};">
-                        <button class="edit-btn" onclick="prepareEdit('${key}', \`${item.name}\`, \`${item.desc}\`, \`${item.code}\`)">تعديل 📝</button>
+                        <button class="edit-btn" onclick="prepareEdit('${key}', '${safeName}', '${safeDesc}', '${safeCode}')">تعديل 📝</button>
                         <button class="delete-btn" onclick="deleteScript('${key}')">حذف 🗑️</button>
                     </div>
-                    <button class="copy-btn" onclick="copyScript(\`${item.code}\`)">نسخ 📋</button>
+                    <button class="copy-btn" onclick="copyScript('${safeCode}')">نسخ 📋</button>
                 </div>
             `;
             container.appendChild(card);
         });
     })
     .catch(err => {
-        container.innerHTML = '<p style="color: #ff4d4d; text-align: center;">خطأ في الاتصال بالسيرفر! تأكد من إعدادات قاعدة البيانات.</p>';
+        container.innerHTML = '<p style="color: #ff4d4d; text-align: center;">خطأ في الاتصال بالسيرفر! تأكد من إعدادات قاعدة البيانات ونشر القواعد.</p>';
     });
 }
 
@@ -93,7 +95,6 @@ function addScriptToServer() {
     const scriptData = { name, desc, code };
     
     if(editKey) {
-        // إذا كان هناك معرف (Key) فهذا يعني أننا نقوم بعملية "تعديل" سكربت موجود مسبقاً
         fetch(`${dbBaseURL}/${editKey}.json`, {
             method: "PUT",
             body: JSON.stringify(scriptData)
@@ -105,7 +106,6 @@ function addScriptToServer() {
             fetchScripts();
         });
     } else {
-        // إذا لم يكن هناك معرف، نقوم بنشر وإضافة سكربت جديد تماماً
         fetch(`${dbBaseURL}.json`, {
             method: "POST",
             body: JSON.stringify(scriptData)
@@ -119,22 +119,23 @@ function addScriptToServer() {
     }
 }
 
-// دالة لتجهيز البيانات داخل لوحة التحكم عندما تضغط على زر "تعديل"
-function prepareEdit(key, name, desc, code) {
+// دالة لتجهيز البيانات داخل لوحة التحكم عند التعديل وفك التشفير الآمن لها
+function prepareEdit(key, safeName, safeDesc, safeCode) {
     document.getElementById("panel-title").innerText = "🛠️ لوحة تحكم المطور (تعديل السكربت الحالي)";
     document.getElementById("panel-title").style.color = "#ffc107";
     document.getElementById("edit-key").value = key;
-    document.getElementById("script-name").value = name;
-    document.getElementById("script-desc").value = desc;
-    document.getElementById("script-code").value = code;
+    
+    document.getElementById("script-name").value = decodeURIComponent(safeName);
+    document.getElementById("script-desc").value = decodeURIComponent(safeDesc);
+    document.getElementById("script-code").value = decodeURIComponent(safeCode);
+    
     document.getElementById("submit-btn").innerText = "حفظ التعديلات الجديدة 💾";
     document.getElementById("submit-btn").style.background = "#ffc107";
     document.getElementById("submit-btn").style.color = "black";
     document.getElementById("cancel-edit-btn").style.display = "block";
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // الصعود لأعلى لرؤية اللوحة
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// دالة لتصفير وتنظيف لوحة التحكم وإعادتها لحالة الإضافة العادية
 function resetAdminPanel() {
     document.getElementById("panel-title").innerText = "🛠️ لوحة تحكم المطور (إضافة سكربت جديد)";
     document.getElementById("panel-title").style.color = "#28a745";
@@ -148,7 +149,6 @@ function resetAdminPanel() {
     document.getElementById("cancel-edit-btn").style.display = "none";
 }
 
-// دالة لحذف السكربت نهائياً من سيرفر الفايربيس
 function deleteScript(key) {
     if(confirm("هل أنت متأكد تماماً من حذف هذا السكربت نهائياً من السيرفر؟")) {
         fetch(`${dbBaseURL}/${key}.json`, {
@@ -156,14 +156,15 @@ function deleteScript(key) {
         })
         .then(() => {
             alert("تم حذف السكربت بنجاح! 🗑️");
-            fetchScripts(); // إعادة التحديث
+            fetchScripts();
         });
     }
 }
 
-// دالة النسخ الفوري وفتح رابط الإعلانات المباشر لزيادة أرباحك
-function copyScript(text) {
-    navigator.clipboard.writeText(text);
+// دالة النسخ الفوري الإعلانية المباشرة لزيادة أرباحك
+function copyScript(safeCode) {
+    const originalCode = decodeURIComponent(safeCode);
+    navigator.clipboard.writeText(originalCode);
     
     let toast = document.getElementById('toast');
     if (toast) {
@@ -172,4 +173,4 @@ function copyScript(text) {
     }
 
     window.open('https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776', '_blank'); 
-}
+                            }
