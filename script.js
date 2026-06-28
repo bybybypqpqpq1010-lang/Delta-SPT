@@ -17,31 +17,32 @@ function showTab(tabId) {
 // دالة تفحص كلمة السر husseinwar لتشغيل لوحة الإشراف + نظام البحث عن السكربتات
 function checkAdmin(val) {
     const adminPanel = document.getElementById("admin-panel");
+    const trimmedVal = val.trim();
     
     // 1. فحص كلمة السر المخفية
-    if(val === "husseinwar") {  
+    if(trimmedVal === "husseinwar") {  
         adminPanel.style.display = "block";
         isAdminActive = true;
         toggleAdminButtons("flex");
         return; // الخروج لكي لا يتم تصفية السكربتات باسم الباسورد
-    } else if (val === "") {
+    } else if (trimmedVal === "") {
         adminPanel.style.display = "none";
         isAdminActive = false;
         toggleAdminButtons("none");
     }
 
-    // 2. كود البحث التلقائي عن المابات للمستخدمين
-    const filter = val.toLowerCase();
+    // 2. كود البحث التلقائي والمستقر عن المابات
+    const filter = trimmedVal.toLowerCase();
     const cards = document.querySelectorAll(".script-card");
 
     cards.forEach(card => {
-        const title = card.querySelector(".script-info h3").innerText.toLowerCase();
-        const desc = card.querySelector(".script-info p").innerText.toLowerCase();
+        const title = card.getAttribute("data-name") || "";
+        const desc = card.getAttribute("data-desc") || "";
         
         if (title.includes(filter) || desc.includes(filter)) {
-            card.style.display = "flex"; // إظهار السكربت المتطابق
+            card.style.setProperty('display', 'flex', 'important'); // إظهار السكربت المتطابق
         } else {
-            card.style.display = "none"; // إخفاء السكربت غير المتطابق
+            card.style.setProperty('display', 'none', 'important'); // إخفاء غير المتطابق
         }
     });
 }
@@ -52,7 +53,7 @@ function toggleAdminButtons(displayStyle) {
     });
 }
 
-// دالة لجلب السكربتات من الفايربيس وعرضها للمستخدمين
+// دالة لجلب السكربتات مرتبة أبجدياً بالإنجليزية (من A إلى Z) وعرضها للمستخدمين
 function fetchScripts() {
     const container = document.getElementById("dynamic-scripts");
     
@@ -65,14 +66,28 @@ function fetchScripts() {
             return;
         }
         
-        Object.keys(data).forEach(key => {
-            const item = data[key];
+        // تحويل الكائن إلى مصفوفة لترتيبها
+        const scriptsArray = Object.keys(data).map(key => {
+            return { id: key, ...data[key] };
+        });
+
+        // الترتيب الأبجدي الإنجليزي المضمون من A إلى Z
+        scriptsArray.sort((a, b) => {
+            return a.name.trim().toLowerCase().localeCompare(b.name.trim().toLowerCase(), 'en');
+        });
+
+        // عرض السكربتات بعد الترتيب الأبجدي الإنجليزي
+        scriptsArray.forEach(item => {
             const card = document.createElement("div");
             card.className = "script-card";
             
+            // تخزين الأسماء بصيغة نصية للبحث الآمن
+            card.setAttribute("data-name", item.name.toLowerCase());
+            card.setAttribute("data-desc", item.desc.toLowerCase());
+            
             const btnDisplay = isAdminActive ? "flex" : "none";
 
-            // تحويل الكود إلى صيغة قاعدة 64 (Base64) الآمنة تماماً لمنع مشاكل الرموز وعلامات الاقتباس نهائياً عند النسخ والتعديل
+            // تشفير الكود برمجياً بـ Base64 لمنع مشاكل الرموز وعلامات الاقتباس
             const safeCode = btoa(unescape(encodeURIComponent(item.code)));
             const safeName = encodeURIComponent(item.name);
             const safeDesc = encodeURIComponent(item.desc);
@@ -84,8 +99,8 @@ function fetchScripts() {
                 </div>
                 <div style="display: flex; align-items: center;">
                     <div class="admin-controls" style="display: ${btnDisplay};">
-                        <button class="edit-btn" onclick="prepareEdit('${key}', '${safeName}', '${safeDesc}', '${safeCode}')">تعديل 📝</button>
-                        <button class="delete-btn" onclick="deleteScript('${key}')">حذف 🗑️</button>
+                        <button class="edit-btn" onclick="prepareEdit('${item.id}', '${safeName}', '${safeDesc}', '${safeCode}')">تعديل 📝</button>
+                        <button class="delete-btn" onclick="deleteScript('${item.id}')">حذف 🗑️</button>
                     </div>
                     <button class="copy-btn" onclick="copyScript('${safeCode}')">نسخ 📋</button>
                 </div>
@@ -145,8 +160,6 @@ function prepareEdit(key, safeName, safeDesc, safeCode) {
     
     document.getElementById("script-name").value = decodeURIComponent(safeName);
     document.getElementById("script-desc").value = decodeURIComponent(safeDesc);
-    
-    // فك التشفير الآمن للكود البرمجي
     document.getElementById("script-code").value = decodeURIComponent(escape(atob(safeCode)));
     
     document.getElementById("submit-btn").innerText = "حفظ التعديلات الجديدة 💾";
