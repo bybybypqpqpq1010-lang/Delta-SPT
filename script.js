@@ -14,35 +14,38 @@ function showTab(tabId) {
     document.getElementById(tabId).classList.add('active');
 }
 
-// دالة تفحص كلمة السر husseinwar لتشغيل لوحة الإشراف + نظام البحث عن السكربتات
+// دالة تفحص كلمة السر husseinwar لتشغيل لوحة الإشراف ونظام البحث دون تداخل
 function checkAdmin(val) {
     const adminPanel = document.getElementById("admin-panel");
-    const trimmedVal = val.trim();
+    const trimmedVal = val.trim().toLowerCase();
     
-    // 1. فحص كلمة السر المخفية
+    // 1. فحص كلمة السر المخصصة لفتح اللوحة
     if(trimmedVal === "husseinwar") {  
         adminPanel.style.display = "block";
         isAdminActive = true;
         toggleAdminButtons("flex");
-        return; // الخروج لكي لا يتم تصفية السكربتات باسم الباسورد
-    } else if (trimmedVal === "") {
+        
+        // إظهار كل السكربتات عند كتابة الباسورد لكي لا تختفي القائمة بالأسفل
+        document.querySelectorAll(".script-card").forEach(card => {
+            card.style.setProperty('display', 'flex', 'important');
+        });
+        return; 
+    } else if (val === "") {
         adminPanel.style.display = "none";
         isAdminActive = false;
         toggleAdminButtons("none");
     }
 
-    // 2. كود البحث التلقائي والمستقر عن المابات
-    const filter = trimmedVal.toLowerCase();
+    // 2. كود البحث التلقائي الفوري المستقر عن المابات للمستخدمين
     const cards = document.querySelectorAll(".script-card");
-
     cards.forEach(card => {
         const title = card.getAttribute("data-name") || "";
         const desc = card.getAttribute("data-desc") || "";
         
-        if (title.includes(filter) || desc.includes(filter)) {
-            card.style.setProperty('display', 'flex', 'important'); // إظهار السكربت المتطابق
+        if (title.includes(trimmedVal) || desc.includes(trimmedVal)) {
+            card.style.setProperty('display', 'flex', 'important'); 
         } else {
-            card.style.setProperty('display', 'none', 'important'); // إخفاء غير المتطابق
+            card.style.setProperty('display', 'none', 'important'); 
         }
     });
 }
