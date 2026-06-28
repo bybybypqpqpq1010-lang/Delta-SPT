@@ -14,18 +14,36 @@ function showTab(tabId) {
     document.getElementById(tabId).classList.add('active');
 }
 
-// دالة تفحص كلمة السر المخفية husseinwar لفتح لوحة التحكم وأزرار الحذف والتعديل
+// دالة تفحص كلمة السر husseinwar لتشغيل لوحة الإشراف + نظام البحث عن السكربتات
 function checkAdmin(val) {
     const adminPanel = document.getElementById("admin-panel");
+    
+    // 1. فحص كلمة السر المخفية
     if(val === "husseinwar") {  
         adminPanel.style.display = "block";
         isAdminActive = true;
         toggleAdminButtons("flex");
+        return; // الخروج لكي لا يتم تصفية السكربتات باسم الباسورد
     } else if (val === "") {
         adminPanel.style.display = "none";
         isAdminActive = false;
         toggleAdminButtons("none");
     }
+
+    // 2. كود البحث التلقائي عن المابات للمستخدمين
+    const filter = val.toLowerCase();
+    const cards = document.querySelectorAll(".script-card");
+
+    cards.forEach(card => {
+        const title = card.querySelector(".script-info h3").innerText.toLowerCase();
+        const desc = card.querySelector(".script-info p").innerText.toLowerCase();
+        
+        if (title.includes(filter) || desc.includes(filter)) {
+            card.style.display = "flex"; // إظهار السكربت المتطابق
+        } else {
+            card.style.display = "none"; // إخفاء السكربت غير المتطابق
+        }
+    });
 }
 
 function toggleAdminButtons(displayStyle) {
@@ -54,8 +72,8 @@ function fetchScripts() {
             
             const btnDisplay = isAdminActive ? "flex" : "none";
 
-            // تشفير الكود برمجياً لحمايته من التداخل مع الرموز وعلامات الاقتباس
-            const safeCode = encodeURIComponent(item.code);
+            // تحويل الكود إلى صيغة قاعدة 64 (Base64) الآمنة تماماً لمنع مشاكل الرموز وعلامات الاقتباس نهائياً عند النسخ والتعديل
+            const safeCode = btoa(unescape(encodeURIComponent(item.code)));
             const safeName = encodeURIComponent(item.name);
             const safeDesc = encodeURIComponent(item.desc);
 
@@ -76,7 +94,7 @@ function fetchScripts() {
         });
     })
     .catch(err => {
-        container.innerHTML = '<p style="color: #ff4d4d; text-align: center;">خطأ في الاتصال بالسيرفر! تأكد من إعدادات قاعدة البيانات ونشر القواعد.</p>';
+        container.innerHTML = '<p style="color: #ff4d4d; text-align: center;">خطأ في الاتصال بالسيرفر! تأكد من اتصالك بالإنترنت.</p>';
     });
 }
 
@@ -119,7 +137,7 @@ function addScriptToServer() {
     }
 }
 
-// دالة لتجهيز البيانات داخل لوحة التحكم عند التعديل وفك التشفير الآمن لها
+// دالة لتجهيز البيانات عند التعديل وفك تشفير الـ Base64
 function prepareEdit(key, safeName, safeDesc, safeCode) {
     document.getElementById("panel-title").innerText = "🛠️ لوحة تحكم المطور (تعديل السكربت الحالي)";
     document.getElementById("panel-title").style.color = "#ffc107";
@@ -127,7 +145,9 @@ function prepareEdit(key, safeName, safeDesc, safeCode) {
     
     document.getElementById("script-name").value = decodeURIComponent(safeName);
     document.getElementById("script-desc").value = decodeURIComponent(safeDesc);
-    document.getElementById("script-code").value = decodeURIComponent(safeCode);
+    
+    // فك التشفير الآمن للكود البرمجي
+    document.getElementById("script-code").value = decodeURIComponent(escape(atob(safeCode)));
     
     document.getElementById("submit-btn").innerText = "حفظ التعديلات الجديدة 💾";
     document.getElementById("submit-btn").style.background = "#ffc107";
@@ -161,16 +181,20 @@ function deleteScript(key) {
     }
 }
 
-// دالة النسخ الفوري الإعلانية المباشرة لزيادة أرباحك
+// دالة النسخ الفوري الإعلانية الآمنة تماماً وفك تشفير الكود قبل النسخ لحمايته
 function copyScript(safeCode) {
-    const originalCode = decodeURIComponent(safeCode);
-    navigator.clipboard.writeText(originalCode);
-    
-    let toast = document.getElementById('toast');
-    if (toast) {
-        toast.style.display = 'block';
-        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    try {
+        const originalCode = decodeURIComponent(escape(atob(safeCode)));
+        navigator.clipboard.writeText(originalCode);
+        
+        let toast = document.getElementById('toast');
+        if (toast) {
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+    } catch(e) {
+        alert("حدث خطأ أثناء نسخ هذا السكربت، يرجى إعادة إضافته.");
     }
 
     window.open('https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776', '_blank'); 
-                            }
+}
