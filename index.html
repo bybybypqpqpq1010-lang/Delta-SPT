@@ -2,76 +2,75 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Delta Scripts Hub</title>
+    <title>HusseinHub Pro</title>
     <style>
-        body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 10px; }
-        .card { background: #1a1a1a; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #333; }
-        .btn { background: #00ffcc; color: #000; padding: 10px; border-radius: 5px; border: none; font-weight: bold; width: 100%; cursor: pointer; }
-        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 8px; border: none; width: 100%; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
+        :root { --primary: #00ffcc; --secondary: #ff0055; --bg: #0d0d0d; --card: #1a1a1a; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); color: #fff; text-align: center; padding: 20px; }
+        h1 { color: var(--primary); text-shadow: 0 0 10px rgba(0,255,204,0.3); }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+        .card { background: var(--card); padding: 15px; border-radius: 12px; border: 1px solid #333; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .btn { background: var(--primary); color: #000; padding: 12px; border-radius: 8px; border: none; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px; }
+        .bot-btn { background: var(--secondary); color: #fff; padding: 15px; border-radius: 10px; border: none; width: 100%; font-weight: bold; margin-bottom: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>HusseinHub - Delta</h1>
+    <h1>HusseinHub - Pro Edition</h1>
     <button class="bot-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 فتح بوت الحصول على المفتاح</button>
 
-    <div id="scripts-container"></div>
+    <div class="grid" id="scripts-container"></div>
 
     <script>
         const adLink = "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776";
-        
         const scripts = [
             {name: "Infinite Yield", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()"},
-            {name: "Blox Fruits Auto Farm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
+            {name: "Blox Fruits Autofarm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
             {name: "Pet Simulator 99", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/PS99/main/main.lua'))()"},
             {name: "Brookhaven GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/dohnto/Brookhaven/main/script'))()"},
-            {name: "Adopt Me Autofarm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AdoptMe/main/Script'))()"},
-            {name: "Doors (Entities)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/mstudio45/Doors/main/main'))()"},
+            {name: "Adopt Me", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AdoptMe/main/Script'))()"},
+            {name: "Doors", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/mstudio45/Doors/main/main'))()"},
             {name: "MM2 Auto Farm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Boxpen/MM2/main/script'))()"},
-            {name: "Bedwars Vape V4", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua'))()"},
-            {name: "Da Hood GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/y3tix/DaHood/main/Script'))()"},
+            {name: "Bedwars", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua'))()"},
+            {name: "Da Hood", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/y3tix/DaHood/main/Script'))()"},
             {name: "Tower of Hell", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/tower-of-hell/master/main.lua'))()"},
-            {name: "Sol's RNG Auto Roll", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/CoolingGhost/SolsRNG/main/Script'))()"},
+            {name: "Sol's RNG", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/CoolingGhost/SolsRNG/main/Script'))()"},
             {name: "Blox Fruits ESP", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/batti123/Roblox/main/BloxFruitsESP'))()"},
             {name: "All Star Tower Defense", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/123qweasd/ASTD/main/Script'))()"},
-            {name: "Blade Ball Autofarm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BladeBall/main/Script'))()"},
-            {name: "Gym League Auto Lift", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/GymLeague/main/Script'))()"},
+            {name: "Blade Ball", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BladeBall/main/Script'))()"},
+            {name: "Gym League", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/GymLeague/main/Script'))()"},
             {name: "Speed Run 4", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/speed-run-4/master/main.lua'))()"},
             {name: "Break In Story", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BreakIn/main/Script'))()"},
-            {name: "Piggy GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/piggy/master/main.lua'))()"},
+            {name: "Piggy", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/piggy/master/main.lua'))()"},
             {name: "Theme Park Tycoon 2", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/ThemePark/main/Script'))()"},
-            {name: "Gravity Controller", code: "game.Workspace.Gravity = 50"},
-            {name: "Fly Script V3", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua'))()"},
-            {name: "WalkSpeed 100", code: "game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100"}
+            {name: "Gravity", code: "game.Workspace.Gravity = 50"},
+            {name: "Fly Script", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua'))()"},
+            {name: "WalkSpeed 100", code: "game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100"},
+            {name: "Ninja Legends", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/NinjaLegends/main/Script'))()"},
+            {name: "Anime Fighters", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AnimeFighters/main/Script'))()"},
+            {name: "Strongman Sim", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/Strongman/main/Script'))()"},
+            {name: "Bee Swarm Sim", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BeeSwarm/main/Script'))()"},
+            {name: "Arsenal GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/Arsenal/main/Script'))()"},
+            {name: "King Legacy", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/KingLegacy/main/Script'))()"},
+            {name: "Clicker Sim", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/ClickerSim/main/Script'))()"},
+            {name: "Jailbreak", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/Jailbreak/main/Script'))()"},
+            {name: "Blox Fruits V2", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BloxFruitsV2/main/Script'))()"},
+            {name: "Free Admin", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/FreeAdmin/main/Script'))()"}
         ];
 
         const container = document.getElementById('scripts-container');
-        
         scripts.forEach(s => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `<h3>${s.name}</h3>`;
-            const btn = document.createElement('button');
-            btn.className = 'btn';
-            btn.innerText = 'نسخ السكربت';
-            btn.onclick = () => {
-                copyText(s.code);
-                // تأخير فتح الإعلان لمدة 1000 مللي ثانية (ثانية واحدة)
-                setTimeout(() => {
-                    window.open(adLink, '_blank');
-                }, 1000);
-            };
-            div.appendChild(btn);
-            container.appendChild(div);
+            container.innerHTML += `<div class="card"><h3>${s.name}</h3><button class="btn" onclick="runCopy('${s.code}')">نسخ السكربت</button></div>`;
         });
 
-        function copyText(text) {
+        function runCopy(code) {
             const el = document.createElement('textarea');
-            el.value = text;
+            el.value = code;
             document.body.appendChild(el);
             el.select();
             document.execCommand('copy');
             document.body.removeChild(el);
-            alert('تم نسخ السكربت! سيفتح الإعلان الآن...');
+            alert('تم النسخ! سيفتح الإعلان لدعمنا...');
+            setTimeout(() => { window.open(adLink, '_blank'); }, 500);
         }
     </script>
 </body>
