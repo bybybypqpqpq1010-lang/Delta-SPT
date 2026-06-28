@@ -26,3 +26,22 @@ nav button { background: #333; color: white; flex: 1; margin: 0 5px; }
     width: 100%;
     text-align: center;
 }
+.script-item {
+    background: #1c1c1c;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.channel-btn {
+    background-color: #17a2b8;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
