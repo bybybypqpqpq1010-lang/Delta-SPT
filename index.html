@@ -4,37 +4,57 @@
     <meta charset="UTF-8">
     <title>Delta Scripts Hub</title>
     <style>
-        body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 15px; }
-        .card { background: #1a1a1a; padding: 15px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #333; }
-        .btn { background: #00ffcc; color: #000; padding: 10px; border-radius: 5px; border: none; font-weight: bold; width: 100%; cursor: pointer; }
-        .bot-btn { background: #ff0055; color: #fff; padding: 15px; border-radius: 8px; border: none; width: 100%; font-weight: bold; margin-bottom: 20px; cursor: pointer; }
+        body { font-family: sans-serif; background-color: #121212; color: #fff; text-align: center; padding: 10px; }
+        .card { background: #1a1a1a; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #333; }
+        .btn { background: #00ffcc; color: #000; padding: 8px; border-radius: 5px; border: none; font-weight: bold; width: 100%; cursor: pointer; }
+        .bot-btn { background: #ff0055; color: #fff; padding: 12px; border-radius: 8px; border: none; width: 100%; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>HusseinHub - Delta</h1>
-    
     <button class="bot-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 فتح بوت الحصول على المفتاح</button>
 
     <div id="scripts-container">
-        <!-- السكربتات -->
-        <div class="card"><h3>Auto Farm (فارم تلقائي)</h3><button class="btn" onclick="copyText('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\'))()')">نسخ السكربت</button></div>
-        <div class="card"><h3>ESP (رؤية الجدران)</h3><button class="btn" onclick="copyText('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/ic3w4rz/SpdHub/master/ESP\'))()')">نسخ السكربت</button></div>
-        <div class="card"><h3>Infinite Yield (سكربت الأدوات)</h3><button class="btn" onclick="copyText('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\'))()')">نسخ السكربت</button></div>
-        <div class="card"><h3>Speed Hack (سرعة)</h3><button class="btn" onclick="copyText('game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100')">نسخ السكربت</button></div>
-        <div class="card"><h3>Fly Script (طيران)</h3><button class="btn" onclick="copyText('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua\'))()')">نسخ السكربت</button></div>
-        <div class="card"><h3>Gravity Control (جاذبية)</h3><button class="btn" onclick="copyText('game.Workspace.Gravity = 50')">نسخ السكربت</button></div>
-    </div>
+        <!-- 20 سكربت مشهور -->
+        <script>
+            const scripts = [
+                {name: "Infinite Yield (أدوات عامة)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()"},
+                {name: "Blox Fruits (فارم)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
+                {name: "Pet Simulator 99 (تلقائي)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/PS99/main/main.lua'))()"},
+                {name: "Brookhaven (ميزات)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/dohnto/Brookhaven/main/script'))()"},
+                {name: "Adopt Me (تجميع)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/AdoptMe/main/Script'))()"},
+                {name: "Doors (تخطي)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/mstudio45/Doors/main/main'))()"},
+                {name: "Murder Mystery 2 (رؤية)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Boxpen/MM2/main/script'))()"},
+                {name: "Bedwars (فوز)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua'))()"},
+                {name: "Da Hood (بوت)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/y3tix/DaHood/main/Script'))()"},
+                {name: "Tower of Hell (تخطي)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/tower-of-hell/master/main.lua'))()"},
+                {name: "Sol's RNG (تلقائي)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/CoolingGhost/SolsRNG/main/Script'))()"},
+                {name: "Blox Fruits (ESP)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/batti123/Roblox/main/BloxFruitsESP'))()"},
+                {name: "All Star Tower Defense", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/123qweasd/ASTD/main/Script'))()"},
+                {name: "Blade Ball (تلقائي)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BladeBall/main/Script'))()"},
+                {name: "Gym League (فارم)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/GymLeague/main/Script'))()"},
+                {name: "Speed Run 4", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/speed-run-4/master/main.lua'))()"},
+                {name: "Break In (Story)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BreakIn/main/Script'))()"},
+                {name: "Piggy (ميزات)", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/piggy/master/main.lua'))()"},
+                {name: "Theme Park Tycoon 2", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/ThemePark/main/Script'))()"},
+                {name: "Gravity Control", code: "game.Workspace.Gravity = 50"}
+            ];
 
-    <script>
-        function copyText(text) {
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            alert('تم نسخ السكربت بنجاح!');
-        }
-    </script>
+            const container = document.getElementById('scripts-container');
+            scripts.forEach(s => {
+                container.innerHTML += `<div class="card"><h3>${s.name}</h3><button class="btn" onclick="copyText('${s.code}')">نسخ السكربت</button></div>`;
+            });
+
+            function copyText(text) {
+                const el = document.createElement('textarea');
+                el.value = text;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('تم النسخ بنجاح!');
+            }
+        </script>
+    </div>
 </body>
 </html>
