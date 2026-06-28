@@ -10,9 +10,7 @@
 
 <header>
     <h1>Delta SPT</h1>
-    <!-- الزر المعتمد (الخيار الثاني) -->
     <button class="key-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 الحصول على مفتاح دلتا</button>
-    
     <div class="top-bar">
         <input type="text" id="search" placeholder="ابحث عن سكربت...">
         <button onclick="toggleTheme()">🌙</button>
@@ -26,7 +24,24 @@
 </nav>
 
 <main>
-    <section id="home" class="tab active"></section>
+    <!-- قسم السكربتات -->
+    <section id="home" class="tab active">
+        <h2>أحدث السكربتات</h2>
+        <div class="script-item">
+            <p>سكربت هوسين هاب (HusseinHub)</p>
+            <button onclick="alert('جاري نسخ السكربت...')">نسخ السكربت 📋</button>
+        </div>
+        <div class="script-item">
+            <p>سكربت ببجي (Performance)</p>
+            <button onclick="alert('جاري نسخ السكربت...')">نسخ السكربت 📋</button>
+        </div>
+        
+        <!-- زر القناة -->
+        <div style="margin-top: 20px;">
+            <button class="channel-btn" onclick="window.open('https://t.me/DeltaSPT', '_blank')">📢 انضم لقناة التطبيق</button>
+        </div>
+    </section>
+
     <section id="fav" class="tab"></section>
     <section id="settings" class="tab">
         <h2>الإعدادات</h2>
@@ -34,13 +49,8 @@
     </section>
 </main>
 
-<div id="toast"></div>
-
 <script>
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-    }
-
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
     function showTab(tabId) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
