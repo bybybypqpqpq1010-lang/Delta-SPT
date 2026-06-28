@@ -27,6 +27,11 @@
         /* تصميم لوحة التحكم المخفية */
         #admin-panel { display: none; background: #222; padding: 15px; border-radius: 12px; margin-top: 20px; border: 2px dashed #007bff; }
         #admin-panel input, #admin-panel textarea { width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #444; background: #111; color: white; box-sizing: border-box; }
+        
+        /* أزرار الإشراف (تعديل وحذف) تظهر لك فقط عند كتابة الباسورد */
+        .admin-controls { display: none; gap: 8px; margin-left: 10px; }
+        .edit-btn { background: #ffc107; color: black; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .delete-btn { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -35,7 +40,6 @@
     <h1>Delta SPT</h1>
     <button class="key-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 الحصول على مفتاح دلتا</button>
     <div class="top-bar">
-        <!-- إذا كتبت هنا كلمة السر admin123 ستفتح لك لوحة الإضافة فوراً -->
         <input type="text" id="search" placeholder="ابحث عن سكربت لماب..." oninput="checkAdmin(this.value)">
         <button onclick="toggleTheme()">🌙</button>
     </div>
@@ -54,17 +58,18 @@
             <button class="channel-top-btn" onclick="window.open('https://t.me/DeltaSPT', '_blank')">📢 انضم لقناة التطبيق الرسمية للتحديثات</button>
         </div>
 
-        <!-- لوحة تحكم المطور حسين لإضافة السكربتات -->
+        <!-- لوحة تحكم المطور حسين لإضافة وتعديل السكربتات -->
         <div id="admin-panel">
-            <h3 style="color: #28a745; margin-top: 0;">🛠️ لوحة تحكم المطور (حسين)</h3>
+            <h3 id="panel-title" style="color: #28a745; margin-top: 0;">🛠️ لوحة تحكم المطور (إضافة سكربت جديد)</h3>
+            <input type="hidden" id="edit-key"> <!-- حقل مخفي لحفظ معرف السكربت عند التعديل -->
             <input type="text" id="script-name" placeholder="اسم ماب روبلوكس (مثال: Blox Fruits)">
             <input type="text" id="script-desc" placeholder="وصف السكربت وماذا يفعل...">
             <textarea id="script-code" placeholder="الصق كود السكربت البرمجي هنا..." rows="3"></textarea>
-            <button onclick="addScriptToServer()" style="background: #28a745; color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer;">نشر السكربت لجميع المستخدمين 🚀</button>
+            <button id="submit-btn" onclick="addScriptToServer()" style="background: #28a745; color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer;">نشر السكربت لجميع المستخدمين 🚀</button>
+            <button id="cancel-edit-btn" onclick="resetAdminPanel()" style="display:none; background: #6c757d; color: white; border: none; padding: 8px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 5px;">إلغاء التعديل ❌</button>
         </div>
 
         <div class="section-title">🔥 سكربتات المابات المضافة حديثاً</div>
-        <!-- هنا ستظهر السكربتات التي تضيفها أنت تلقائياً من الفايربيس -->
         <div class="script-container" id="dynamic-scripts">
             <p style="color: #888; text-align: center;">جاري تحميل السكربتات من السيرفر...</p>
         </div>
@@ -86,7 +91,6 @@
 
 <div id="toast" style="display:none; position:fixed; bottom:20px; background:#28a745; color:white; padding:12px 24px; border-radius:8px; width:80%; text-align:center; left:10%; z-index: 10000; font-weight: bold;">تم النسخ! جاري فتح الإعلان...</div>
 
-<!-- ربط ملف الجافاسكربت -->
 <script src="script.js"></script>
 </body>
 </html>
