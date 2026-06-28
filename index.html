@@ -154,6 +154,13 @@ return;
 let arr=Object.entries(d);
 document.getElementById("count").innerText=arr.length;
 
+// تم إضافة الترتيب الأبجدي هنا بدون التعديل على أي شيء آخر
+arr.sort((a, b) => {
+    let nameA = String(a[1].name || "").trim();
+    let nameB = String(b[1].name || "").trim();
+    return nameA.localeCompare(nameB, ['ar', 'en'], { sensitivity: 'base', numeric: true });
+});
+
 arr.forEach(([id,x])=>{
 let div=document.createElement("div");
 div.className="card";
