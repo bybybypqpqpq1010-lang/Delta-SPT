@@ -10,8 +10,9 @@
 
 <header>
     <h1>Delta SPT</h1>
-    <!-- إضافة زر مفاتيح دلتا هنا -->
-    <button class="key-btn" onclick="window.open('https://t.me/OrxBypass_bot', '_blank')">🔑 مفاتيح دلتا</button>
+    <!-- زر المفتاح -->
+    <button class="key-btn" onclick="openBot()">🔑 الحصول على مفتاح دلتا</button>
+    
     <div class="top-bar">
         <input type="text" id="search" placeholder="ابحث عن سكربت...">
         <button onclick="toggleTheme()">🌙</button>
@@ -33,8 +34,23 @@
     </section>
 </main>
 
+<!-- نافذة البوت داخل التطبيق -->
+<div id="bot-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#1a1a1a; z-index:9999;">
+    <button onclick="closeBot()" style="padding:15px; width:100%; background:#dc3545; color:white; border:none; font-weight:bold;">إغلاق النافذة ❌</button>
+    <iframe src="https://web.telegram.org/a/#?tgaddr=tg%3A%2F%2Fresolve%3Fdomain%3DOrxBypass_bot" width="100%" height="90%" frameborder="0"></iframe>
+</div>
+
 <div id="toast"></div>
 
+<script>
+    function openBot() { document.getElementById('bot-overlay').style.display = 'block'; }
+    function closeBot() { document.getElementById('bot-overlay').style.display = 'none'; }
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
+    function showTab(tabId) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+    }
+</script>
 <script src="script.js"></script>
 </body>
 </html>
