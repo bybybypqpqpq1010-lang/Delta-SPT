@@ -1,71 +1,95 @@
-const home = document.getElementById("home");
-const fav = document.getElementById("fav");
-const toast = document.getElementById("toast");
-const adLink = "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776";
+// رابط قاعدة بيانات الفايربيس الخاصة بك
+const dbURL = "https://delta-spt-default-rtdb.firebaseio.com/scripts.json";
 
-let favorites = JSON.parse(localStorage.getItem("fav")) || [];
+// تشغيل جلب السكربتات فور فتح التطبيق
+document.addEventListener("DOMContentLoaded", fetchScripts);
 
-const data = [
-    {name: "Infinite Yield", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()"},
-    {name: "Blox Fruits Auto", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HohoV2/main/ScriptOnly'))()"},
-    {name: "Pet Simulator 99", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/NukeVsCity/PS99/main/main.lua'))()"},
-    {name: "Brookhaven GUI", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/dohnto/Brookhaven/main/script'))()"},
-    {name: "MM2 Auto Farm", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Boxpen/MM2/main/script'))()"},
-    {name: "Blade Ball", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/1f0cky/BladeBall/main/Script'))()"}
-];
+function toggleTheme() { document.body.classList.toggle('light-mode'); }
 
-function render(){
-    home.innerHTML = `<button class="btn" style="background:#ffcc00; width:100%; margin-bottom:15px" onclick="window.open('${adLink}', '_blank')">اضغط لدعمنا (إعلان)</button>`;
-    data.forEach((item,i)=>{
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `<h3>${item.name}</h3>
-            <button onclick="copyCode(${i})">📋 نسخ</button>
-            <button onclick="addFav(${i})">⭐ مفضلة</button>`;
-        home.appendChild(div);
-    });
-    renderFav();
+function showTab(tabId) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
 }
 
-function renderFav(){
-    fav.innerHTML = "";
-    favorites.forEach((item)=>{
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `<h3>${item.name}</h3><button onclick="navigator.clipboard.writeText('${item.code}'); showToast('تم النسخ')">📋 نسخ</button>`;
-        fav.appendChild(div);
-    });
-}
-
-function copyCode(i){
-    navigator.clipboard.writeText(data[i].code);
-    showToast("تم النسخ! سيفتح الإعلان...");
-    setTimeout(() => { window.open(adLink, '_blank'); }, 800);
-}
-
-function addFav(i){
-    if(!favorites.find(f => f.name === data[i].name)) {
-        favorites.push(data[i]);
-        localStorage.setItem("fav", JSON.stringify(favorites));
-        renderFav();
-        showToast("تمت الإضافة للمفضلة");
+// دالة تفحص إذا كتب حسين كلمة السر تفتح له اللوحة
+function checkAdmin(val) {
+    const adminPanel = document.getElementById("admin-panel");
+    if(val === "admin123") {  // يمكنك تغيير كلمة السر admin123 لأي شيء تريده
+        adminPanel.style.display = "block";
+    } else if (val === "") {
+        adminPanel.style.display = "none";
     }
 }
 
-function showTab(tab){
-    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-    document.getElementById(tab).classList.add("active");
+// دالة لجلب السكربتات من الفايربيس وعرضها للمستخدمين
+function fetchScripts() {
+    const container = document.getElementById("dynamic-scripts");
+    
+    fetch(dbURL)
+    .then(response => response.json())
+    .then(data => {
+        container.innerHTML = "";
+        if (!data) {
+            container.innerHTML = '<p style="color: #888; text-align: center;">لا توجد سكربتات مضافة حالياً. اكتب admin123 في البحث لتضيف أول سكربت!</p>';
+            return;
+        }
+        
+        // ترتيب وعرض السكربتات
+        Object.keys(data).forEach(key => {
+            const item = data[key];
+            const card = document.createElement("div");
+            card.className = "script-card";
+            card.innerHTML = `
+                <div class="script-info">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                </div>
+                <button class="copy-btn" onclick="copyScript(\`${item.code}\`)">نسخ 📋</button>
+            `;
+            container.appendChild(card);
+        });
+    })
+    .catch(err => {
+        container.innerHTML = '<p style="color: #ff4d4d; text-align: center;">خطأ في الاتصال بالسيرفر!</p>';
+    });
 }
 
-function toggleTheme(){
-    document.body.classList.toggle("light");
-    localStorage.setItem("theme", document.body.classList.contains("light") ? "light":"dark");
+// دالة إرسال سكربت جديد إلى الفايربيس لكي يصل للجميع
+function addScriptToServer() {
+    const name = document.getElementById("script-name").value;
+    const desc = document.getElementById("script-desc").value;
+    const code = document.getElementById("script-code").value;
+    
+    if(!name || !desc || !code) {
+        alert("الرجاء ملء جميع الحقول أولاً!");
+        return;
+    }
+    
+    const newScript = { name, desc, code };
+    
+    fetch(dbURL, {
+        method: "POST",
+        body: JSON.stringify(newScript)
+    })
+    .then(response => response.json())
+    .then(() => {
+        alert("تم نشر السكربت بنجاح لجميع المستخدمين! 🎉");
+        document.getElementById("script-name").value = "";
+        document.getElementById("script-desc").value = "";
+        document.getElementById("script-code").value = "";
+        fetchScripts(); // إعادة تحديث القائمة
+    });
 }
 
-function showToast(msg){
-    toast.innerText = msg; toast.style.display = "block";
-    setTimeout(()=>toast.style.display="none", 1500);
-}
+// دالة النسخ الفوري وفتح الإعلان بعد نصف ثانية
+function copyScript(text) {
+    navigator.clipboard.writeText(text);
+    
+    let toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 2500);
 
-if(localStorage.getItem("theme") === "light") document.body.classList.add("light");
-render();
+    setTimeout(() => {
+        window.open('https://t.me/DeltaSPT', '_blank'); 
+    }, 500);
+}
