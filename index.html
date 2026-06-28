@@ -6,6 +6,9 @@
 <title>Delta SPT PRO</title>
 
 <style>
+/* ------------------------------------------------------------- */
+/* ستايلك الأصلي والمضبوط (لا يزال يعمل كما هو) */
+/* ------------------------------------------------------------- */
 :root{
 --bg:#0d1117;--card:#161b22;--text:#f0f6fc;--muted:#8b949e;
 --blue:#1f6feb;--green:#238636;--red:#da3633;--border:#30363d;
@@ -50,10 +53,71 @@ display:flex;justify-content:space-between;align-items:center
 position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
 background:var(--green);padding:10px 20px;border-radius:20px;display:none
 }
+
+
+/* ------------------------------------------------------------- */
+/* الستايل الاحترافي الجديد (يشتغل فقط عند إضافة كلاس premium-theme) */
+/* ------------------------------------------------------------- */
+body.premium-theme {
+    background: #0b0f17;
+    color: #f0f4f9;
+}
+body.premium-theme header {
+    background: #121824;
+    border-bottom: 1px solid #26354a;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+body.premium-theme header h3 {
+    background: linear-gradient(to left, #60a5fa, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+body.premium-theme .main {
+    background: linear-gradient(135deg, #1f6feb, #1d4ed8);
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(31, 111, 235, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+body.premium-theme .main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(31, 111, 235, 0.4);
+}
+body.premium-theme input, body.premium-theme textarea {
+    background: #121824;
+    border: 2px solid #26354a;
+    border-radius: 12px;
+    padding: 12px;
+    transition: border-color 0.3s;
+}
+body.premium-theme input:focus, body.premium-theme textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+}
+body.premium-theme .card {
+    background: #121824;
+    border: 1px solid #26354a;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+body.premium-theme .copy {
+    background: linear-gradient(135deg, #1f6feb, #1d4ed8);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: bold;
+}
+body.premium-theme #admin {
+    background: #121824;
+    border: 1px solid #10b981;
+    border-radius: 14px;
+}
 </style>
 </head>
 
-<body>
+<!-- لتفعيل المظهر الاحترافي أضف premium-theme داخل الـ body كما هو موضح بالأسفل -->
+<!-- إذا لم يعجبك المظهر الجديد، فقط امسح كلمة premium-theme واترك الـ <body> فارغاً ليعود لشغلك الأصلي فوراً -->
+<body class="premium-theme">
 
 <header>
 <h3>Delta SPT </h3>
@@ -154,7 +218,7 @@ return;
 let arr=Object.entries(d);
 document.getElementById("count").innerText=arr.length;
 
-// تم إضافة الترتيب الأبجدي هنا بدون التعديل على أي شيء آخر
+// الترتيب الأبجدي التلقائي للغتين
 arr.sort((a, b) => {
     let nameA = String(a[1].name || "").trim();
     let nameB = String(b[1].name || "").trim();
