@@ -17,37 +17,46 @@
 --border:#d0d7de;
 }
 
-*{box-sizing:border-box;font-family:Arial;margin:0;padding:0;transition:.2s}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial;transition:.2s}
 body{background:var(--bg);color:var(--text);direction:rtl}
 
 header{
 display:flex;justify-content:space-between;align-items:center;
-padding:12px;background:var(--card);position:sticky;top:0
+padding:12px;background:var(--card);position:sticky;top:0;
+border-bottom:1px solid var(--border);
 }
 
-button{cursor:pointer}
-
 .container{max-width:650px;margin:auto;padding:10px}
+
+button{cursor:pointer}
 
 .main-btn{
 width:100%;padding:14px;border:none;border-radius:12px;
 background:linear-gradient(135deg,#1f6feb,#388bfd);color:white;font-weight:bold
 }
 
-.search{width:100%;padding:12px;border-radius:10px;
-border:1px solid var(--border);background:var(--card);color:var(--text);margin:10px 0}
+.search{
+width:100%;padding:12px;border-radius:10px;
+border:1px solid var(--border);background:var(--card);color:var(--text);margin:10px 0
+}
 
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 
-.tab{padding:10px;border-radius:10px;background:var(--card);
-border:1px solid var(--border);color:var(--muted);text-align:center}
+.tab{
+padding:10px;border-radius:10px;background:var(--card);
+border:1px solid var(--border);color:var(--muted);text-align:center
+}
 
-.banner{margin:10px 0;padding:10px;border:1px dashed var(--blue);
-color:var(--muted);border-radius:10px}
+.banner{
+margin:10px 0;padding:10px;border:1px dashed var(--blue);
+border-radius:10px;color:var(--muted)
+}
 
-.card{background:var(--card);padding:12px;margin:10px 0;
+.card{
+background:var(--card);padding:12px;margin:10px 0;
 border-radius:12px;border:1px solid var(--border);
-display:flex;justify-content:space-between;align-items:center}
+display:flex;justify-content:space-between;align-items:center
+}
 
 .card h3{margin:0}
 .card p{color:var(--muted);font-size:13px}
@@ -56,8 +65,10 @@ display:flex;justify-content:space-between;align-items:center}
 .copy{background:var(--blue);color:white}
 .del{background:transparent;border:1px solid var(--red);color:var(--red)}
 
-#admin{display:none;background:var(--card);padding:12px;margin:10px 0;
-border:1px solid var(--green);border-radius:12px}
+#admin{
+display:none;background:var(--card);padding:12px;margin:10px 0;
+border:1px solid var(--green);border-radius:12px
+}
 
 input,textarea{
 width:100%;margin:5px 0;padding:10px;border-radius:8px;
@@ -102,9 +113,9 @@ onclick="window.open('https://t.me/OrxBypass_bot','_blank')">
 
 <div id="admin">
 <h3>لوحة التحكم</h3>
-<input id="name" placeholder="اسم">
+<input id="name" placeholder="اسم السكربت">
 <input id="desc" placeholder="وصف">
-<textarea id="code" placeholder="كود"></textarea>
+<textarea id="code" placeholder="الكود"></textarea>
 <button onclick="add()">نشر</button>
 </div>
 
@@ -121,32 +132,58 @@ const db="https://delta-spt-default-rtdb.firebaseio.com/scripts";
 let admin=false;
 
 function toggleTheme(){
-document.body.classList.toggle("light-mode")
+document.body.classList.toggle("light-mode");
 }
 
 function searchFun(v){
 document.querySelectorAll(".card").forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(v.toLowerCase())?"flex":"none"
-})
-if(v.trim()=="husseinwar"){
-document.getElementById("admin").style.display="block"
-admin=true
+c.style.display=c.innerText.toLowerCase().includes(v.toLowerCase())?"flex":"none";
+});
+
+if(v.trim().toLowerCase()==="husseinwar"){
+admin=true;
+document.getElementById("admin").style.display="block";
+load();
 }
+}
+
+function add(){
+const nameVal=document.getElementById("name").value;
+const descVal=document.getElementById("desc").value;
+const codeVal=document.getElementById("code").value;
+
+if(!nameVal||!descVal||!codeVal){
+alert("املأ كل الحقول");
+return;
+}
+
+fetch(db+".json",{
+method:"POST",
+body:JSON.stringify({name:nameVal,desc:descVal,code:codeVal})
+}).then(()=>{
+document.getElementById("name").value="";
+document.getElementById("desc").value="";
+document.getElementById("code").value="";
+load();
+alert("تم نشر السكربت");
+});
 }
 
 function load(){
 fetch(db+".json")
 .then(r=>r.json())
 .then(d=>{
-let list=document.getElementById("list")
-list.innerHTML=""
-if(!d)return
-let arr=Object.entries(d)
-document.getElementById("count").innerText=arr.length
+let list=document.getElementById("list");
+list.innerHTML="";
+
+if(!d)return;
+
+let arr=Object.entries(d);
+document.getElementById("count").innerText=arr.length;
 
 arr.forEach(([id,x])=>{
-let div=document.createElement("div")
-div.className="card"
+let div=document.createElement("div");
+div.className="card";
 
 div.innerHTML=`
 <div>
@@ -156,59 +193,36 @@ div.innerHTML=`
 
 <div>
 <button class="btn copy" onclick="copyCode(\`${btoa(x.code)}\`)">نسخ</button>
-${admin?`<button class='btn del' onclick="del('${id}')">حذف</button>`:""}
+${admin ? `<button class="btn del" onclick="del('${id}')">حذف</button>` : ""}
 </div>
-`
-list.appendChild(div)
-})
-})
-}
+`;
 
-function add(){
-let name=name.value,desc=desc.value,code=code.value
-fetch(db+".json",{method:"POST",body:JSON.stringify({name,desc,code})})
-.then(()=>{load()})
+list.appendChild(div);
+});
+});
 }
 
 function del(id){
-fetch(db+"/"+id+".json",{method:"DELETE"}).then(load)
+fetch(db+"/"+id+".json",{method:"DELETE"}).then(load);
 }
 
 function copyCode(c){
-    try {
-        navigator.clipboard.writeText(atob(c));
+navigator.clipboard.writeText(atob(c));
 
-        document.getElementById("toast").style.display = "block";
-        setTimeout(()=>toast.style.display="none",2000);
+document.getElementById("toast").style.display="block";
+setTimeout(()=>toast.style.display="none",2000);
 
-        // 🔥 فتح رابط الإعلان بعد النسخ
-        window.open(
-            "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776",
-            "_blank"
-        );
-
-    } catch(e){
-        alert("خطأ في النسخ");
-    }
-      }function copyCode(c){
-    try {
-        navigator.clipboard.writeText(atob(c));
-
-        document.getElementById("toast").style.display = "block";
-        setTimeout(()=>toast.style.display="none",2000);
-
-        // 🔥 فتح رابط الإعلان بعد النسخ
-        window.open(
-            "https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776",
-            "_blank"
-        );
-
-    } catch(e){
-        alert("خطأ في النسخ");
-    }
+window.open(
+"https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776",
+"_blank"
+);
 }
 
-load()
+function toggleTheme(){
+document.body.classList.toggle("light-mode");
+}
+
+load();
 </script>
 
 </body>
