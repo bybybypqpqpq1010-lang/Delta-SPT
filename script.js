@@ -27,7 +27,7 @@ function checkAdmin(val) {
         
         // إظهار كل السكربتات عند كتابة الباسورد لكي لا تختفي القائمة بالأسفل
         document.querySelectorAll(".script-card").forEach(card => {
-            card.style.setProperty('display', 'flex', 'important');
+            card.style.display = "flex";
         });
         return; 
     } else if (val === "") {
@@ -43,9 +43,9 @@ function checkAdmin(val) {
         const desc = card.getAttribute("data-desc") || "";
         
         if (title.includes(trimmedVal) || desc.includes(trimmedVal)) {
-            card.style.setProperty('display', 'flex', 'important'); 
+            card.style.display = "flex"; 
         } else {
-            card.style.setProperty('display', 'none', 'important'); 
+            card.style.display = "none"; 
         }
     });
 }
@@ -59,6 +59,7 @@ function toggleAdminButtons(displayStyle) {
 // دالة لجلب السكربتات مرتبة أبجدياً بالإنجليزية (من A إلى Z) وعرضها للمستخدمين
 function fetchScripts() {
     const container = document.getElementById("dynamic-scripts");
+    if (!container) return;
     
     fetch(`${dbBaseURL}.json`)
     .then(response => response.json())
@@ -76,7 +77,9 @@ function fetchScripts() {
 
         // الترتيب الأبجدي الإنجليزي المضمون من A إلى Z
         scriptsArray.sort((a, b) => {
-            return a.name.trim().toLowerCase().localeCompare(b.name.trim().toLowerCase(), 'en');
+            const nameA = (a.name || "").trim().toLowerCase();
+            const nameB = (b.name || "").trim().toLowerCase();
+            return nameA.localeCompare(nameB, 'en');
         });
 
         // عرض السكربتات بعد الترتيب الأبجدي الإنجليزي
@@ -85,20 +88,20 @@ function fetchScripts() {
             card.className = "script-card";
             
             // تخزين الأسماء بصيغة نصية للبحث الآمن
-            card.setAttribute("data-name", item.name.toLowerCase());
-            card.setAttribute("data-desc", item.desc.toLowerCase());
+            card.setAttribute("data-name", (item.name || "").toLowerCase());
+            card.setAttribute("data-desc", (item.desc || "").toLowerCase());
             
             const btnDisplay = isAdminActive ? "flex" : "none";
 
             // تشفير الكود برمجياً بـ Base64 لمنع مشاكل الرموز وعلامات الاقتباس
-            const safeCode = btoa(unescape(encodeURIComponent(item.code)));
-            const safeName = encodeURIComponent(item.name);
-            const safeDesc = encodeURIComponent(item.desc);
+            const safeCode = btoa(unescape(encodeURIComponent(item.code || "")));
+            const safeName = encodeURIComponent(item.name || "");
+            const safeDesc = encodeURIComponent(item.desc || "");
 
             card.innerHTML = `
                 <div class="script-info">
-                    <h3>${item.name}</h3>
-                    <p>${item.desc}</p>
+                    <h3>${item.name || ""}</h3>
+                    <p>${item.desc || ""}</p>
                 </div>
                 <div style="display: flex; align-items: center;">
                     <div class="admin-controls" style="display: ${btnDisplay};">
@@ -213,4 +216,4 @@ function copyScript(safeCode) {
     }
 
     window.open('https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776', '_blank'); 
-        }
+}
