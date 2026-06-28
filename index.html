@@ -24,30 +24,36 @@
 </nav>
 
 <main>
-    <!-- قسم السكربتات -->
     <section id="home" class="tab active">
         <h2>أحدث السكربتات</h2>
+        <!-- السكربتات -->
         <div class="script-item">
-            <p>سكربت هوسين هاب (HusseinHub)</p>
-            <button onclick="alert('جاري نسخ السكربت...')">نسخ السكربت 📋</button>
+            <p>HusseinHub</p>
+            <button onclick="copyScript('كود سكربت هوسين هاب هنا')">نسخ 📋</button>
         </div>
         <div class="script-item">
-            <p>سكربت ببجي (Performance)</p>
-            <button onclick="alert('جاري نسخ السكربت...')">نسخ السكربت 📋</button>
+            <p>PUBG Script</p>
+            <button onclick="copyScript('كود سكربت ببجي هنا')">نسخ 📋</button>
         </div>
-        
+
         <!-- زر القناة -->
         <div style="margin-top: 20px;">
             <button class="channel-btn" onclick="window.open('https://t.me/DeltaSPT', '_blank')">📢 انضم لقناة التطبيق</button>
         </div>
     </section>
 
-    <section id="fav" class="tab"></section>
+    <section id="fav" class="tab">
+        <h2>المفضلة</h2>
+        <p>لا توجد سكربتات في المفضلة بعد.</p>
+    </section>
+
     <section id="settings" class="tab">
         <h2>الإعدادات</h2>
-        <p>يتم حفظ القيم تلقائياً</p>
+        <p>تفعيل الوضع الليلي تلقائي.</p>
     </section>
 </main>
+
+<div id="toast" style="display:none; position:fixed; bottom:20px; background:#333; color:white; padding:10px; border-radius:5px; width:80%; text-align:center; left:10%;">تم النسخ بنجاح!</div>
 
 <script>
     function toggleTheme() { document.body.classList.toggle('light-mode'); }
@@ -55,7 +61,14 @@
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
     }
+    
+    // دالة النسخ التي تحل مشكلة الإعلان وتظهر رسالة تأكيد
+    function copyScript(text) {
+        navigator.clipboard.writeText(text);
+        let toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
 </script>
-<script src="script.js"></script>
 </body>
 </html>
