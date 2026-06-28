@@ -1,391 +1,188 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delta SPT</title>
-    <style>
-        /* الهوية البصرية العصرية للوضع المظلم (GitHub Dark Theme Style) */
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #21262d;
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
-            --accent-blue: #1f6feb;
-            --accent-blue-hover: #388bfd;
-            --accent-green: #238636;
-            --accent-green-hover: #2ea043;
-            --accent-yellow: #d29922;
-            --accent-red: #da3633;
-            --border-color: #30363d;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delta SPT</title>
 
-        /* الوضع الفاتح المريح للعين */
-        .light-mode {
-            --bg-primary: #f6f8fa;
-            --bg-secondary: #ffffff;
-            --bg-card: #f6f8fa;
-            --text-main: #24292f;
-            --text-muted: #57606a;
-            --accent-blue: #0969da;
-            --accent-blue-hover: #1a7fec;
-            --accent-green: #1a7f37;
-            --accent-green-hover: #1f883d;
-            --accent-yellow: #9a6700;
-            --accent-red: #cf222e;
-            --border-color: #d0d7de;
-        }
+<style>
+:root{
+--bg:#0d1117;--card:#161b22;--text:#f0f6fc;--muted:#8b949e;
+--blue:#1f6feb;--green:#238636;--yellow:#d29922;--red:#da3633;
+--border:#30363d;
+}
+.light-mode{
+--bg:#f6f8fa;--card:#fff;--text:#24292f;--muted:#57606a;
+--blue:#0969da;--green:#1a7f37;--yellow:#9a6700;--red:#cf222e;
+--border:#d0d7de;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+*{box-sizing:border-box;font-family:Arial;margin:0;padding:0;transition:.2s}
+body{background:var(--bg);color:var(--text);direction:rtl}
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            direction: rtl;
-            padding-bottom: 40px;
-        }
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:12px;background:var(--card);position:sticky;top:0
+}
 
-        header {
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+button{cursor:pointer}
 
-        .brand h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+.container{max-width:650px;margin:auto;padding:10px}
 
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.main-btn{
+width:100%;padding:14px;border:none;border-radius:12px;
+background:linear-gradient(135deg,#1f6feb,#388bfd);color:white;font-weight:bold
+}
 
-        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+.search{width:100%;padding:12px;border-radius:10px;
+border:1px solid var(--border);background:var(--card);color:var(--text);margin:10px 0}
 
-        .main-key-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(31, 111, 235, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 
-        .search-wrapper { position: relative; margin: 20px 0; }
-        
-        .search-input {
-            width: 100%;
-            background-color: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            color: var(--text-main);
-            padding: 15px 20px;
-            border-radius: 14px;
-            font-size: 15px;
-            outline: none;
-        }
+.tab{padding:10px;border-radius:10px;background:var(--card);
+border:1px solid var(--border);color:var(--muted);text-align:center}
 
-        .search-input:focus { border-color: var(--accent-blue); }
+.banner{margin:10px 0;padding:10px;border:1px dashed var(--blue);
+color:var(--muted);border-radius:10px}
 
-        .nav-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 25px; }
-        
-        .tab-button {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 12px 5px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-        }
+.card{background:var(--card);padding:12px;margin:10px 0;
+border-radius:12px;border:1px solid var(--border);
+display:flex;justify-content:space-between;align-items:center}
 
-        .tab-button.active { background-color: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+.card h3{margin:0}
+.card p{color:var(--muted);font-size:13px}
 
-        .announcement-banner {
-            background: rgba(31, 111, 235, 0.1);
-            border: 1px dashed var(--accent-blue);
-            padding: 14px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
+.btn{padding:8px 10px;border-radius:8px;border:none}
+.copy{background:var(--blue);color:white}
+.del{background:transparent;border:1px solid var(--red);color:var(--red)}
 
-        #admin-panel {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--accent-green);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
+#admin{display:none;background:var(--card);padding:12px;margin:10px 0;
+border:1px solid var(--green);border-radius:12px}
 
-        .form-group input, .form-group textarea {
-            width: 100%;
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            outline: none;
-        }
+input,textarea{
+width:100%;margin:5px 0;padding:10px;border-radius:8px;
+border:1px solid var(--border);background:var(--bg);color:var(--text)
+}
 
-        .form-group textarea { height: 110px; font-family: monospace; }
+textarea{height:90px}
 
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        .section-title { font-size: 15px; color: var(--text-muted); margin-bottom: 15px; font-weight: 600; }
-
-        .script-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .script-info h3 { font-size: 16px; margin-bottom: 6px; font-weight: 600; }
-        .script-info p { font-size: 13px; color: var(--text-muted); }
-
-        .script-actions { display: flex; align-items: center; gap: 8px; }
-
-        .btn-action { padding: 9px 15px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; }
-        
-        .copy-btn { background-color: var(--accent-blue); color: white; }
-        .copy-btn:hover { background-color: var(--accent-blue-hover); }
-        .edit-btn { background-color: var(--accent-yellow); color: black; }
-        .delete-btn { background-color: rgba(218, 54, 51, 0.1); color: var(--accent-red); border: 1px solid rgba(218, 54, 51, 0.2); }
-
-        #toast {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background-color: #2ea043; color: white; padding: 12px 24px;
-            border-radius: 30px; font-weight: 600; z-index: 1000; display: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-    </style>
+.toast{
+position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+background:var(--green);padding:10px 20px;color:white;border-radius:20px;display:none
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <div class="brand"><h1>Delta SPT</h1></div>
-        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-    </header>
+<header>
+<h2>Delta SPT</h2>
+<button onclick="toggleTheme()">🌙</button>
+</header>
 
-    <div class="container">
-        <div class="key-btn-container">
-            <button class="main-key-btn" onclick="window.open('https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776', '_blank')">🔑 الحصول على مفتاح دلتا</button>
-        </div>
+<div class="container">
 
-        <div class="search-wrapper">
-            <input type="text" class="search-input" id="search-bar" placeholder="ابحث عن ماب، أو اكتب كلمة السر..." oninput="checkAdmin(this.value)">
-        </div>
+<button class="main-btn"
+onclick="window.open('https://t.me/OrxBypass_bot','_blank')">
+🤖 الحصول على المفتاح
+</button>
 
-        <div class="nav-tabs">
-            <button class="tab-button active">الرئيسية 🔥</button>
-            <button class="tab-button" onclick="window.open('https://t.me/your_channel', '_blank')">القناة 📢</button>
-            <button class="tab-button" onclick="alert('قريباً...')">المفضلة ⭐</button>
-            <button class="tab-button" onclick="alert('قريباً...')">الإعدادات ⚙️</button>
-        </div>
+<input class="search" id="search" placeholder="ابحث..." oninput="searchFun(this.value)">
 
-        <div class="announcement-banner">
-            📢 انضم لقناة التطبيق الرسمية لمعرفة آخر التحديثات والسكربتات!
-        </div>
+<div class="tabs">
+<div class="tab">الرئيسية</div>
+<div class="tab" onclick="window.open('https://t.me/DeltaSPT','_blank')">القناة</div>
+<div class="tab">المفضلة</div>
+<div class="tab">الإعدادات</div>
+</div>
 
-        <!-- لوحة تحكم المطور المفتوحة بكلمة سرك -->
-        <div id="admin-panel" style="display: none;">
-            <h2 id="panel-title" style="color: var(--accent-green); margin-bottom: 15px;">🛠... لوحة التحكم (إضافة سكربت جديد)</h2>
-            <input type="hidden" id="edit-key">
-            <div class="form-group">
-                <input type="text" id="script-name" placeholder="اسم ماب روبلوكس (مثال: Blox Fruits)">
-                <input type="text" id="script-desc" placeholder="وصف وتفاصيل السكربت...">
-                <textarea id="script-code" placeholder="الصق الكود البرمجي (Lua Script) هنا..."></textarea>
-            </div>
-            <button id="submit-btn" class="submit-btn" style="background-color: var(--accent-green); color: white;" onclick="addScriptToServer()">نشر السكربت لجميع المستخدمين 🚀</button>
-            <button id="cancel-edit-btn" class="submit-btn" style="background-color: #30363d; color: white; margin-top: 10px; display: none;" onclick="resetAdminPanel()">إلغاء التعديل الحالي ❌</button>
-        </div>
+<div class="banner">
+📢 تابع قناة Delta SPT للحصول على التحديثات
+</div>
 
-        <div class="section-title">✨ سكربتات المابات المرتبة أبجدياً (A-Z)</div>
-        <div id="dynamic-scripts"></div>
-    </div>
+<div id="admin">
+<h3>لوحة التحكم</h3>
+<input id="name" placeholder="اسم">
+<input id="desc" placeholder="وصف">
+<textarea id="code" placeholder="كود"></textarea>
+<button onclick="add()">نشر</button>
+</div>
 
-    <div id="toast">📋 تم نسخ السكربت بنجاح فتح الرابط!</div>
+<h3>✨ السكربتات (<span id="count">0</span>)</h3>
+<div id="list"></div>
 
-    <script>
-        const dbBaseURL = "https://delta-spt-default-rtdb.firebaseio.com/scripts";
-        let isAdminActive = false;
+</div>
 
-        document.addEventListener("DOMContentLoaded", fetchScripts);
+<div class="toast" id="toast">تم النسخ</div>
 
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            document.querySelector('.theme-toggle').innerText = document.body.classList.contains('light-mode') ? "☀️" : "🌙";
-        }
+<script>
+const db="https://delta-spt-default-rtdb.firebaseio.com/scripts";
 
-        function checkAdmin(val) {
-            const adminPanel = document.getElementById("admin-panel");
-            const trimmedVal = val.trim().toLowerCase();
-            
-            if(trimmedVal === "husseinwar") {  
-                if (adminPanel) adminPanel.style.display = "block";
-                isAdminActive = true;
-                toggleAdminButtons("flex");
-                document.querySelectorAll(".script-card").forEach(c => c.style.display = "flex");
-                return; 
-            } else if (val === "") {
-                if (adminPanel) adminPanel.style.display = "none";
-                isAdminActive = false;
-                toggleAdminButtons("none");
-            }
+let admin=false;
 
-            document.querySelectorAll(".script-card").forEach(card => {
-                const title = card.getAttribute("data-name") || "";
-                const desc = card.getAttribute("data-desc") || "";
-                card.style.display = (title.includes(trimmedVal) || desc.includes(trimmedVal)) ? "flex" : "none";
-            });
-        }
+function toggleTheme(){
+document.body.classList.toggle("light-mode")
+}
 
-        function toggleAdminButtons(displayStyle) {
-            document.querySelectorAll('.admin-controls').forEach(c => c.style.display = displayStyle);
-        }
+function searchFun(v){
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(v.toLowerCase())?"flex":"none"
+})
+if(v.trim()=="husseinwar"){
+document.getElementById("admin").style.display="block"
+admin=true
+}
+}
 
-        function fetchScripts() {
-            const container = document.getElementById("dynamic-scripts");
-            if (!container) return;
-            
-            fetch(`${dbBaseURL}.json`)
-            .then(r => r.json())
-            .then(data => {
-                container.innerHTML = "";
-                if (!data) {
-                    container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">لا توجد سكربتات مضافة حالياً في السيرفر.</p>';
-                    return;
-                }
-                
-                const scriptsArray = Object.keys(data).map(k => ({ id: k, ...data[k] }));
-                scriptsArray.sort((a, b) => String(a.name || "").trim().toLowerCase().localeCompare(String(b.name || "").trim().toLowerCase(), 'en'));
+function load(){
+fetch(db+".json")
+.then(r=>r.json())
+.then(d=>{
+let list=document.getElementById("list")
+list.innerHTML=""
+if(!d)return
+let arr=Object.entries(d)
+document.getElementById("count").innerText=arr.length
 
-                scriptsArray.forEach(item => {
-                    const card = document.createElement("div");
-                    card.className = "script-card";
-                    card.setAttribute("data-name", String(item.name || "").toLowerCase());
-                    card.setAttribute("data-desc", String(item.desc || "").toLowerCase());
-                    
-                    const btnDisplay = isAdminActive ? "flex" : "none";
-                    const safeCode = btoa(unescape(encodeURIComponent(item.code || "")));
+arr.forEach(([id,x])=>{
+let div=document.createElement("div")
+div.className="card"
 
-                    card.innerHTML = `
-                        <div class="script-info">
-                            <h3>${item.name || ""}</h3>
-                            <p>${item.desc || ""}</p>
-                        </div>
-                        <div class="script-actions">
-                            <div class="admin-controls" style="display: ${btnDisplay}; gap: 5px;">
-                                <button class="btn-action edit-btn" onclick="prepareEdit('${item.id}', '${encodeURIComponent(item.name)}', '${encodeURIComponent(item.desc)}', '${safeCode}')">📝</button>
-                                <button class="btn-action delete-btn" onclick="deleteScript('${item.id}')">🗑️</button>
-                            </div>
-                            <button class="btn-action copy-btn" onclick="copyScript('${safeCode}')">📋 نسخ الكود</button>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(() => { container.innerHTML = '<p style="color: var(--accent-red); text-align: center;">خطأ في جلب البيانات من الفايربيس!</p>'; });
-        }
+div.innerHTML=`
+<div>
+<h3>${x.name}</h3>
+<p>${x.desc}</p>
+</div>
 
-        function addScriptToServer() {
-            const name = document.getElementById("script-name").value;
-            const desc = document.getElementById("script-desc").value;
-            const code = document.getElementById("script-code").value;
-            const editKey = document.getElementById("edit-key").value;
-            
-            if(!name || !desc || !code) return alert("الرجاء ملء جميع الحقول أولاً!");
-            const scriptData = { name, desc, code };
-            
-            const url = editKey ? `${dbBaseURL}/${editKey}.json` : `${dbBaseURL}.json`;
-            fetch(url, { method: editKey ? "PUT" : "POST", body: JSON.stringify(scriptData) })
-            .then(() => { alert("تمت العملية بنجاح لتطبيق دلتا! 🎉"); resetAdminPanel(); fetchScripts(); });
-        }
+<div>
+<button class="btn copy" onclick="copyCode(\`${btoa(x.code)}\`)">نسخ</button>
+${admin?`<button class='btn del' onclick="del('${id}')">حذف</button>`:""}
+</div>
+`
+list.appendChild(div)
+})
+})
+}
 
-        function prepareEdit(key, name, desc, safeCode) {
-            document.getElementById("panel-title").innerText = "🛠️ وضع التعديل الحالي للسكربت";
-            document.getElementById("panel-title").style.color = "var(--accent-yellow)";
-            document.getElementById("edit-key").value = key;
-            document.getElementById("script-name").value = decodeURIComponent(name);
-            document.getElementById("script-desc").value = decodeURIComponent(desc);
-            document.getElementById("script-code").value = decodeURIComponent(escape(atob(safeCode)));
-            document.getElementById("submit-btn").innerText = "حفظ التعديلات الحالية 💾";
-            document.getElementById("submit-btn").style.background = "var(--accent-yellow)";
-            document.getElementById("submit-btn").style.color = "black";
-            document.getElementById("cancel-edit-btn").style.display = "block";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+function add(){
+let name=name.value,desc=desc.value,code=code.value
+fetch(db+".json",{method:"POST",body:JSON.stringify({name,desc,code})})
+.then(()=>{load()})
+}
 
-        function resetAdminPanel() {
-            document.getElementById("panel-title").innerText = "🛠️ لوحة التحكم (إضافة سكربت جديد)";
-            document.getElementById("panel-title").style.color = "var(--accent-green)";
-            document.getElementById("edit-key").value = "";
-            document.getElementById("script-name").value = "";
-            document.getElementById("script-desc").value = "";
-            document.getElementById("script-code").value = "";
-            document.getElementById("submit-btn").innerText = "نشر السكربت لجميع المستخدمين 🚀";
-            document.getElementById("submit-btn").style.background = "var(--accent-green)";
-            document.getElementById("submit-btn").style.color = "white";
-            document.getElementById("cancel-edit-btn").style.display = "none";
-        }
+function del(id){
+fetch(db+"/"+id+".json",{method:"DELETE"}).then(load)
+}
 
-        function deleteScript(key) {
-            if(confirm("هل أنت متأكد من حذف هذا السكربت نهائياً؟")) {
-                fetch(`${dbBaseURL}/${key}.json`, { method: "DELETE" }).then(() => { alert("تم الحذف بنجاح!"); fetchScripts(); });
-            }
-        }
+function copyCode(c){
+navigator.clipboard.writeText(atob(c))
+document.getElementById("toast").style.display="block"
+setTimeout(()=>toast.style.display="none",2000)
+window.open("https://t.me/OrxBypass_bot","_blank")
+}
 
-        function copyScript(safeCode) {
-            try {
-                navigator.clipboard.writeText(decodeURIComponent(escape(atob(safeCode))));
-                const t = document.getElementById('toast');
-                t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500);
-            } catch(e) { alert("خطأ في عملية النسخ"); }
-            window.open('https://www.effectivecpmnetwork.com/hgn359eg5u?key=64ed1654117b213984688e88e8596776', '_blank'); 
-        }
-    </script>
+load()
+</script>
+
 </body>
 </html>
